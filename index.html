@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <script defer type="module" src="./index.js"></script>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <div class="container">
+        <div class="header__row">
+          <div class="logo">
+            <a href="#header">MVM</a>
+          </div>
+          <div class="header__catalog">
+            <button class="header__catalog-btn">
+              Catalog <img src="./img/arrow-down.svg" alt="" />
+            </button>
+            <div class="header__catalog-content hidden">
+              <!-- items from js -->
+            </div>
+          </div>
+          <div class="search">
+            <input type="text" class="search__input" placeholder="Find your items" />
+            <img src="./img/search.svg" alt="" class="search__img" />
+          </div>
+          <nav class="nav">
+            <div class="nav__item" data-nav-favorites>
+              <img src="./img/heart.svg" class="nav__item-img" alt="" />
+              <div class="nav__item-title">Favorites</div>
+            </div>
+            <div class="nav__item" data-nav-cart>
+              <img src="./img/cart.svg" class="nav__item-img" alt="" />
+              <div class="nav__item-title">Cart</div>
+            </div>
+            <div class="nav__item" data-nav-profile>
+              <img src="./img/profile.svg" alt="" />
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="home">
+        <div class="banner">
+          <div class="container">
+            <div class="banner__row">
+              <div class="banner__text">
+                <h1 class="banner__text-title">Everything you need is in one place!</h1>
+                <p class="banner__text-subtitle">
+                  A huge selection of goods from electronics to clothing with convenient delivery
+                  and the best prices
+                </p>
+                <button class="banner__text-btn">All categories</button>
+              </div>
+              <div class="banner__img">
+                <img src="./img/online-shopping-bg.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="popular-categories">
+          <div class="container">
+            <h2 class="popular-categories__title title-2">Popular categories</h2>
+            <div class="popular-categories__grid">
+              <!-- items from js -->
+            </div>
+          </div>
+        </div>
+
+        <div class="recent">
+          <div class="container">
+            <h2 class="recent__title title-2">Recently viewed</h2>
+            <div class="recent__grid">
+              <div class="recent__item">
+                <div class="recent__item-img">
+                  <img src="./img/shopping.jpg" alt="" />
+                </div>
+                <div class="recent__item-title">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, ex. Lorem ipsum
+                </div>
+                <div class="recent__item-bottom">
+                  <div class="recent__item-rating">
+                    <div class="recent__item-rating__img">
+                      <img src="./img/star.svg" alt="" />
+                    </div>
+                    <div class="recent__item-rating__num">4.5</div>
+                    <div class="recent__item-rating__reviews">3 reviews</div>
+                  </div>
+                  <div class="recent__item-cta">
+                    <div class="recent__item-cta__price">$ 14</div>
+                    <div class="recent__item-cta__favorite recent__item-cta__img">
+                      <img src="./img/heart.svg" alt="" />
+                    </div>
+                    <div class="recent__item-cta__cart recent__item-cta__img">
+                      <img src="./img/cart.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="recent__item">
+                <div class="recent__item-img">
+                  <img src="./img/shopping.jpg" alt="" />
+                </div>
+                <div class="recent__item-title">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, ex. Lorem ipsum
+                </div>
+                <div class="recent__item-bottom">
+                  <div class="recent__item-rating">
+                    <div class="recent__item-rating__img">
+                      <img src="./img/star.svg" alt="" />
+                    </div>
+                    <div class="recent__item-rating__num">4.5</div>
+                    <div class="recent__item-rating__reviews">3 reviews</div>
+                  </div>
+                  <div class="recent__item-cta">
+                    <div class="recent__item-cta__price">$ 14</div>
+                    <div class="recent__item-cta__favorite recent__item-cta__img">
+                      <img src="./img/heart.svg" alt="" />
+                    </div>
+                    <div class="recent__item-cta__cart recent__item-cta__img">
+                      <img src="./img/cart.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="recent__item">
+                <div class="recent__item-img">
+                  <img src="./img/shopping.jpg" alt="" />
+                </div>
+                <div class="recent__item-title">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, ex. Lorem ipsum
+                </div>
+                <div class="recent__item-bottom">
+                  <div class="recent__item-rating">
+                    <div class="recent__item-rating__img">
+                      <img src="./img/star.svg" alt="" />
+                    </div>
+                    <div class="recent__item-rating__num">4.5</div>
+                    <div class="recent__item-rating__reviews">3 reviews</div>
+                  </div>
+                  <div class="recent__item-cta">
+                    <div class="recent__item-cta__price">$ 14</div>
+                    <div class="recent__item-cta__favorite recent__item-cta__img">
+                      <img src="./img/heart.svg" alt="" />
+                    </div>
+                    <div class="recent__item-cta__cart recent__item-cta__img">
+                      <img src="./img/cart.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="recent__item">
+                <div class="recent__item-img">
+                  <img src="./img/shopping.jpg" alt="" />
+                </div>
+                <div class="recent__item-title">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione, ex. Lorem ipsum
+                </div>
+                <div class="recent__item-bottom">
+                  <div class="recent__item-rating">
+                    <div class="recent__item-rating__img">
+                      <img src="./img/star.svg" alt="" />
+                    </div>
+                    <div class="recent__item-rating__num">4.5</div>
+                    <div class="recent__item-rating__reviews">3 reviews</div>
+                  </div>
+                  <div class="recent__item-cta">
+                    <div class="recent__item-cta__price">$ 14</div>
+                    <div class="recent__item-cta__favorite recent__item-cta__img">
+                      <img src="./img/heart.svg" alt="" />
+                    </div>
+                    <div class="recent__item-cta__cart recent__item-cta__img">
+                      <img src="./img/cart.svg" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog hidden">
+        <div class="container">
+          <h2 class="catalog__title title-2">Catalog</h2>
+          <div class="catalog__grid">
+            <!-- items from js -->
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog-items hidden">
+        <div class="container">
+          <div class="catalog__items-heading__title title-2">Category 000 items</div>
+
+          <!-- ///// -->
+          <div class="catalog__items-row">
+            <form class="catalog__items-left">
+              <div class="catalog__items-left__title">Filters</div>
+              <label class="catalog__items-left__rating">
+                <input type="checkbox" name="value-rating" value="checked" class="checkbox-real" />
+                <span class="checkbox-fake">Rating 4 or more(123)</span>
+              </label>
+              <div class="catalog__items-left__price">
+                <div class="catalog__items-left__price-title">Price</div>
+                <div class="catalog__items-left__price-row">
+                  <input
+                    type="number"
+                    name="value-price-from"
+                    class="catalog__items-left__price-num"
+                    min="111"
+                    max="11111"
+                    placeholder="from 111"
+                  />
+                  <input
+                    type="number"
+                    name="value-price-to"
+                    class="catalog__items-left__price-num"
+                    min="222"
+                    max="11111"
+                    placeholder="to 11111"
+                  />
+                </div>
+                <!--  -->
+              </div>
+              <div class="catalog__items-left__apply">
+                <button class="catalog__items-left__apply-btn" type="button">Apply</button>
+                <!--  -->
+              </div>
+              <div class="catalog__items-left__reset">
+                <button class="catalog__items-left__reset-btn" type="reset">Reset</button>
+                <!--  -->
+              </div>
+            </form>
+            <!-- //// -->
+
+            <div class="catalog__items-main">
+              <!-- ///// -->
+              <div class="catalog__items-filter">
+                <div class="catalog__items-filter__sort">
+                  <!--  -->
+                  <div class="catalog__items-filter__sort-title">Sorting:</div>
+                  <div class="catalog__items-filter__sort-selected">
+                    First the cheap ones <img src="./img/arrow-down.svg" alt="" />
+                  </div>
+                  <ul class="catalog__items-filter__sort-list">
+                    <li class="catalog__items-filter__sort-list__item" data-sort="cheap">
+                      First the cheap ones
+                    </li>
+                    <li class="catalog__items-filter__sort-list__item" data-sort="expensive">
+                      First the expensive ones
+                    </li>
+                    <li class="catalog__items-filter__sort-list__item" data-sort="rating">
+                      First with the best rating
+                    </li>
+                  </ul>
+                </div>
+                <div class="catalog__items-filter__change">
+                  <!-- change grid layout -->
+                  <img src="./img/grid-vertical.svg" alt="" />
+                  <img src="./img/grid-rows.svg" alt="" />
+                </div>
+              </div>
+              <!-- ///// -->
+
+              <div class="catalog__items-grid">
+                <!-- items from js -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
