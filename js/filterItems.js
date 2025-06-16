@@ -1,11 +1,15 @@
 export default class CatalogItems {
   constructor(data) {
     this.data = data;
+    console.log(this.data);
     this.container = document.querySelector(".catalog__items-grid");
     this.category = document
       .querySelector(".catalog__items-heading__title")
       .innerText.split(" ")[0]
       .toLowerCase();
+
+    this.baseItems = this.data.filter((item) => item.category === this.category);
+    this.filteredItemsArr = [...this.baseItems];
   }
 
   renderCatalogItemsProduct = (item) => {
@@ -54,8 +58,6 @@ export default class CatalogItems {
   filterItems(formData) {
     let isRatingSelected = false;
 
-    const filteredItemsArr = [];
-
     for (const [key] of formData) {
       if (key == "value-rating") {
         isRatingSelected = true;
@@ -63,16 +65,10 @@ export default class CatalogItems {
       }
     }
 
-    this.data.forEach((item) => {
-      if (item.category == this.category) filteredItemsArr.push(item);
-    });
-
-    this.container.innerHTML = "";
-
     const priceFrom = parseFloat(document.querySelector('input[name="value-price-from"]').value);
     const priceTo = parseFloat(document.querySelector('input[name="value-price-to"]').value);
 
-    filteredItemsArr.forEach((item) => {
+    const filtered = this.baseItems.filter((item) => {
       const isRatingOk = isRatingSelected ? item.rating >= 4 : true;
 
       const isPriceFromValid = isNaN(priceFrom) || item.price >= priceFrom;
@@ -80,10 +76,15 @@ export default class CatalogItems {
 
       const isPriceOk = isPriceFromValid && isPriceToValid;
 
-      if (isRatingOk && isPriceOk) {
-        this.renderCatalogItemsProduct(item);
-      }
+      return isRatingOk && isPriceOk;
     });
+
+    this.filteredItemsArr = filtered;
+    console.log(this.filteredItemsArr);
+
+    this.container.innerHTML = "";
+
+    filtered.forEach((item) => this.renderCatalogItemsProduct(item));
   }
 
   static setCatalogFilterPricesValues() {
@@ -142,44 +143,31 @@ export default class CatalogItems {
     filterPriceContainer.addEventListener("input", validatePrices);
   }
 
-  sortCatalogItems(catalogItemsProducts, sortType) {
-    const catalogItemsSortedArr = [];
+  sortCatalogItems(sortType) {
+    // const sortedItems = [...this.filteredItemsArr];
+    // console.log(sortedItems);
 
-    catalogItemsProducts.forEach((item) => {
-      if (item.category == this.category) {
-        catalogItemsSortedArr.push(item);
-      }
-    });
+    // console.log(this.filteredItemsArr);
 
     switch (sortType) {
       case "cheap":
-        catalogItemsSortedArr.sort((a, b) => a.price - b.price);
-        this.container.innerHTML = "";
-
-        catalogItemsSortedArr.forEach((item) => {
-          this.renderCatalogItemsProduct(item);
-        });
+        this.filteredItemsArr.sort((a, b) => a.price - b.price);
         break;
 
       case "expensive":
-        catalogItemsSortedArr.sort((a, b) => b.price - a.price);
-        this.container.innerHTML = "";
-        console.log(catalogItemsSortedArr);
-
-        catalogItemsSortedArr.forEach((item) => {
-          this.renderCatalogItemsProduct(item);
-        });
+        this.filteredItemsArr.sort((a, b) => b.price - a.price);
         break;
 
       case "rating":
-        catalogItemsSortedArr.sort((a, b) => b.rating - a.rating);
-        this.container.innerHTML = "";
+        this.filteredItemsArr.sort((a, b) => b.rating - a.rating);
 
-        catalogItemsSortedArr.forEach((item) => {
-          this.renderCatalogItemsProduct(item);
-        });
       default:
         break;
     }
+
+    // console.log(sortedItems);
+
+    this.container.innerHTML = "";
+    this.filteredItemsArr.forEach((item) => this.renderCatalogItemsProduct(item));
   }
 }

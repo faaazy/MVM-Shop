@@ -113,15 +113,31 @@ catalogList.addEventListener("click", (event) => {
   showCatalogItemsPage(clickedItem, ".catalog__items-grid");
 });
 
+let catalogItemsClass = null;
+
+function initCatalog() {
+  const container = document.querySelector(".catalog__items-grid");
+
+  if (container && productsData && productsData.length > 0) {
+    if (!catalogItemsClass) {
+      catalogItemsClass = new CatalogItems(productsData);
+    }
+    return true;
+  }
+  return false;
+}
+
 // Catalog Items
 const formApplyBtn = document.querySelector(".catalog__items-left__apply-btn");
 
 // const catalogItemsClass = new CatalogItems(productsData);
 formApplyBtn.addEventListener("click", () => {
+  initCatalog();
+
   const form = document.querySelector(".catalog__items-left");
   const formData = new FormData(form);
 
-  new CatalogItems(productsData).filterItems(formData);
+  catalogItemsClass.filterItems(formData);
 });
 
 // catalogItemsFilterSort Toggle
@@ -131,10 +147,12 @@ const catalogFilterSortIcon = catalogFilterSort.querySelector("img");
 
 document.addEventListener("click", (event) => {
   if (event.target.closest(".catalog__items-filter__sort-list__item")) {
+    initCatalog();
+
     catalogFilterSortList.classList.add("hidden");
     catalogFilterSortIcon.style.transform = "rotate(0deg)";
 
-    new CatalogItems().sortCatalogItems(productsData, event.target.dataset.sort);
+    catalogItemsClass.sortCatalogItems(event.target.dataset.sort);
 
     [...catalogFilterSortList.children].forEach((item) => item.classList.remove("active"));
 
