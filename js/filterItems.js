@@ -1,7 +1,6 @@
 export default class CatalogItems {
   constructor(data) {
     this.data = data;
-    console.log(this.data);
     this.container = document.querySelector(".catalog__items-grid");
     this.category = document
       .querySelector(".catalog__items-heading__title")

@@ -1,6 +1,8 @@
 import RenderHomePageItems from "./js/renderHomePage.js";
 import Catalog from "./js/catalog.js";
 import CatalogItems from "./js/filterItems.js";
+import { initEvents } from "./js/initEvents.js";
+import { initCatalogHandlers } from "./js/catalogHandlers.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -11,10 +13,6 @@ async function getData() {
 
 const uniqueCategories = [];
 const productsData = [];
-
-const mainHome = document.querySelector(".home");
-const mainCatalog = document.querySelector(".catalog");
-const catalogItems = document.querySelector(".catalog-items");
 
 // Render Home Items
 getData().then((data) => {
@@ -33,49 +31,16 @@ getData().then((data) => {
   catalogList.fillCatalogList();
 });
 
-// CatalogContent Toggle
-const catalogBtn = document.querySelector(".header__catalog-btn");
-const catalogContent = document.querySelector(".header__catalog-content");
-const catalogIcon = catalogBtn.querySelector("img");
-
-document.addEventListener("click", (event) => {
-  if (event.target.closest(".header__catalog-content a")) {
-    catalogContent.classList.add("hidden");
-    catalogIcon.style.transform = "rotate(0deg)";
-  } else if (event.target.closest(".header__catalog-btn")) {
-    const isHidden = catalogContent.classList.toggle("hidden");
-    catalogIcon.style.transform = isHidden ? "rotate(0deg)" : "rotate(180deg)";
-  } else {
-    catalogContent.classList.add("hidden");
-    catalogIcon.style.transform = "rotate(0deg)";
-  }
-});
-
-// Show Clicked Page Function
-function showClickedPage(requiredPage) {
+// showClickedPage function
+export function showClickedPage(requiredPage) {
   const mainChildren = document.querySelector("main").children;
   for (const item of mainChildren) item.classList.add("hidden");
 
   requiredPage.classList.remove("hidden");
 }
 
-// Show Catalog
-const categoriesBtn = document.querySelector(".banner__text-btn");
-categoriesBtn.addEventListener("click", () => {
-  showClickedPage(mainCatalog);
-
-  const allCategories = new Catalog(uniqueCategories, ".catalog__grid");
-  allCategories.createCatalog();
-});
-
-// Show Main Menu
-const logo = document.querySelector(".logo");
-logo.addEventListener("click", () => {
-  showClickedPage(mainHome);
-});
-
 // ShowCatalogItemsPage function
-function showCatalogItemsPage(clickedItem, catalogContainer) {
+export function showCatalogItemsPage(clickedItem, catalogContainer) {
   if (clickedItem) {
     showClickedPage(catalogItems);
 
@@ -84,13 +49,13 @@ function showCatalogItemsPage(clickedItem, catalogContainer) {
   }
 }
 
-// Items in category
-const catalogContainer = document.querySelector(".catalog__grid");
-catalogContainer.addEventListener("click", (event) => {
-  const clickedItem = event.target.closest(".catalog__item");
+// init events
+initEvents();
 
-  showCatalogItemsPage(clickedItem, ".catalog__items-grid");
-});
+// init catalog handlers
+const catalogItems = document.querySelector(".catalog-items");
+
+initCatalogHandlers(showClickedPage, Catalog, productsData, uniqueCategories);
 
 // Popular Categories items
 const popularCategoriesContainer = document.querySelector(".popular-categories__grid");
@@ -105,34 +70,29 @@ popularCategoriesContainer.addEventListener("click", (event) => {
   form.reset();
 });
 
-// Catalog List items
-const catalogList = document.querySelector(".header__catalog-content");
-catalogList.addEventListener("click", (event) => {
-  const clickedItem = event.target.closest(".catalog__list-item");
+// Init Catalog Class func
+let catalogItemsClass;
 
-  showCatalogItemsPage(clickedItem, ".catalog__items-grid");
-});
+function initCatalogClass() {
+  const catalogItemsCategory = document
+    .querySelector(".catalog__items-heading__title")
+    .innerText.split(" ")[0]
+    .toLowerCase();
 
-let catalogItemsClass = null;
+  const catalogItemsContainer = document.querySelector(".catalog__items-grid");
 
-function initCatalog() {
-  const container = document.querySelector(".catalog__items-grid");
-
-  if (container && productsData && productsData.length > 0) {
-    if (!catalogItemsClass) {
+  if (catalogItemsContainer && productsData.length > 0) {
+    if (!catalogItemsClass || catalogItemsClass.category !== catalogItemsCategory) {
       catalogItemsClass = new CatalogItems(productsData);
     }
-    return true;
   }
-  return false;
 }
 
 // Catalog Items
 const formApplyBtn = document.querySelector(".catalog__items-left__apply-btn");
 
-// const catalogItemsClass = new CatalogItems(productsData);
 formApplyBtn.addEventListener("click", () => {
-  initCatalog();
+  initCatalogClass();
 
   const form = document.querySelector(".catalog__items-left");
   const formData = new FormData(form);
@@ -147,7 +107,7 @@ const catalogFilterSortIcon = catalogFilterSort.querySelector("img");
 
 document.addEventListener("click", (event) => {
   if (event.target.closest(".catalog__items-filter__sort-list__item")) {
-    initCatalog();
+    initCatalogClass();
 
     catalogFilterSortList.classList.add("hidden");
     catalogFilterSortIcon.style.transform = "rotate(0deg)";
@@ -165,5 +125,3 @@ document.addEventListener("click", (event) => {
     catalogFilterSortIcon.style.transform = "rotate(0deg)";
   }
 });
-
-// catalogItemsFilter
