@@ -2,11 +2,21 @@ export default class Catalog {
   constructor(data, container) {
     this.data = data;
     this.container = document.querySelector(container);
+    this.uniqueCategoies = new Set();
+    this.uniqueItems = [];
   }
 
   createCatalog() {
     this.container.innerHTML = "";
-    this.data.forEach((item) => {
+
+    this.data.filter((item) => {
+      if (this.uniqueCategoies.has(item.category)) return;
+
+      this.uniqueCategoies.add(item.category);
+      this.uniqueItems.push(item);
+    });
+
+    this.uniqueItems.forEach((item) => {
       const catalogItem = document.createElement("div");
 
       catalogItem.className = `catalog__item`;

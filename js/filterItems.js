@@ -143,11 +143,6 @@ export default class CatalogItems {
   }
 
   sortCatalogItems(sortType) {
-    // const sortedItems = [...this.filteredItemsArr];
-    // console.log(sortedItems);
-
-    // console.log(this.filteredItemsArr);
-
     switch (sortType) {
       case "cheap":
         this.filteredItemsArr.sort((a, b) => a.price - b.price);
@@ -163,8 +158,6 @@ export default class CatalogItems {
       default:
         break;
     }
-
-    // console.log(sortedItems);
 
     this.container.innerHTML = "";
     this.filteredItemsArr.forEach((item) => this.renderCatalogItemsProduct(item));
