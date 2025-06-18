@@ -79,7 +79,6 @@ export default class CatalogItems {
     });
 
     this.filteredItemsArr = filtered;
-    console.log(this.filteredItemsArr);
 
     this.container.innerHTML = "";
 
