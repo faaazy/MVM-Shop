@@ -4,6 +4,7 @@ import CatalogItems from "./js/filterItems.js";
 import { initEvents } from "./js/initEvents.js";
 import { initCatalogHandlers } from "./js/catalogHandlers.js";
 import { initCatalogItemsHandlers } from "./js/catalogItemsHandlers.js";
+import { initItemPage } from "./js/itemPage.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -78,3 +79,6 @@ export function initCatalogClass() {
 
 // init Catalog Items Handlers
 initCatalogItemsHandlers();
+
+// init Game Page
+initItemPage();

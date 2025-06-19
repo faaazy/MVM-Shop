@@ -22,22 +22,24 @@ export default class CatalogItems {
           <div class="recent__item-img">
             <img src="${item.images[0]}" alt="" />
           </div>
-          <div class="recent__item-title">${item.title}</div>
-          <div class="recent__item-bottom">
-            <div class="recent__item-rating">
-              <div class="recent__item-rating__img">
-                <img src="./img/star.svg" alt="" />
+          <div class="catalog__items-product__content">
+            <div class="recent__item-title">${item.title}</div>
+            <div class="recent__item-bottom">
+              <div class="recent__item-rating">
+                <div class="recent__item-rating__img">
+                  <img src="./img/star.svg" alt="" />
+                </div>
+                <div class="recent__item-rating__num">${item.rating}</div>
+                <div class="recent__item-rating__reviews">${item.reviews.length} reviews</div>
               </div>
-              <div class="recent__item-rating__num">${item.rating}</div>
-              <div class="recent__item-rating__reviews">${item.reviews.length} reviews</div>
-            </div>
-            <div class="recent__item-cta">
-              <div class="recent__item-cta__price">$ ${item.price}</div>
-              <div class="recent__item-cta__favorite recent__item-cta__img">
-                <img src="./img/heart.svg" alt="" />
-              </div>
-              <div class="recent__item-cta__cart recent__item-cta__img">
-                <img src="./img/cart.svg" alt="" />
+              <div class="recent__item-cta">
+                <div class="recent__item-cta__price">$ ${item.price}</div>
+                <div class="recent__item-cta__favorite recent__item-cta__img">
+                  <img src="./img/heart.svg" alt="" />
+                </div>
+                <div class="recent__item-cta__cart recent__item-cta__img">
+                  <img src="./img/cart.svg" alt="" />
+                </div>
               </div>
             </div>
           </div>
