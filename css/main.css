@@ -590,6 +590,24 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
+
+  &.layout-rows {
+    grid-template-columns: repeat(1, 1fr);
+
+    .catalog__items-product {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+
+      .catalog__items-product__content {
+        width: 100%;
+      }
+    }
+  }
+
+  &.layout-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 .catalog__items-product {
   padding: 10px;

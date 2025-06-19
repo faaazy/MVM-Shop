@@ -52,4 +52,26 @@ export function initCatalogItemsHandlers() {
     const form = document.querySelector(".catalog__items-left");
     form.reset();
   });
+
+  // change layout
+  const changeLayoutContainer = document.querySelector(".catalog__items-filter__change");
+
+  changeLayoutContainer.addEventListener("click", (event) => {
+    const catalogGrid = document.querySelector(".catalog__items-grid");
+
+    switch (event.target.dataset.layout) {
+      case "rows":
+        catalogGrid.classList.add("layout-rows");
+        catalogGrid.classList.remove("layout-grid");
+        break;
+
+      case "grid":
+        catalogGrid.classList.add("layout-grid");
+        catalogGrid.classList.remove("layout-rows");
+        break;
+
+      default:
+        break;
+    }
+  });
 }
