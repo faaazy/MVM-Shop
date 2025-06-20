@@ -4,7 +4,7 @@ import CatalogItems from "./js/filterItems.js";
 import { initEvents } from "./js/initEvents.js";
 import { initCatalogHandlers } from "./js/catalogHandlers.js";
 import { initCatalogItemsHandlers } from "./js/catalogItemsHandlers.js";
-import { initItemPage } from "./js/itemPage.js";
+import { initProductPage } from "./js/productPage.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -33,6 +33,9 @@ getData().then((data) => {
 
   const catalogList = new RenderHomePageItems(uniqueCategories, ".header__catalog-content");
   catalogList.fillCatalogList();
+
+  // init Game Page
+  initProductPage(productsData, showClickedPage);
 });
 
 // showClickedPage function
@@ -80,5 +83,5 @@ export function initCatalogClass() {
 // init Catalog Items Handlers
 initCatalogItemsHandlers();
 
-// init Game Page
-initItemPage();
+// // init Game Page
+// initItemPage(productsData);
