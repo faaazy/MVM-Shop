@@ -738,7 +738,8 @@ body {
 }
 .product-page__main-row__right-stock {
   margin-top: 20px;
-  max-width: 200px;
+  display: inline-flex;
+  gap: 5px;
   padding: 10px;
 
   font-size: 18px;
