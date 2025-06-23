@@ -38,10 +38,37 @@ function renderProductPage(productCardInfo) {
     )
     .join("");
 
+  const reviewsHTML = productCardInfo.reviews
+    .map(
+      (review) =>
+        `
+      <div class="product-page__reviews-item">
+        <div class="product-page__reviews-item__person">
+          <div class="product-page__reviews-item__person-img"><img src="./img/person.svg"></div>
+          <div class="product-page__reviews-item__person-name">
+            ${review.reviewerName}
+          </div>
+        </div>
+
+
+        <div class="product-page__reviews-item__rating">
+          ${'<img src="./img/star.svg" alt="" />'.repeat(review.rating)}
+        </div>
+
+        <div class="product-page__reviews-item__text">${review.comment}</div>
+
+        <div class="product-page__reviews-item__date">${new Date(review.date).toLocaleDateString(
+          "en-US"
+        )}</div>
+      </div>
+    `
+    )
+    .join("");
+
   const productPageHTML = `
     <div class="product-page__title title-2">${productCardInfo.title}</div>
 
-     <div class="product-page__main"> 
+    <div class="product-page__main"> 
       <div class="product-page__main-row">
         <div class="product-page__main-row__left">
           <div class="swiper mySwiper">
@@ -81,6 +108,12 @@ function renderProductPage(productCardInfo) {
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="product-page__reviews">
+      <div class="product-page__reviews__title title-2">Reviews</div>
+
+      ${reviewsHTML}
     </div>
   `;
 
