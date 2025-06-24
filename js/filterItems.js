@@ -20,7 +20,7 @@ export default class CatalogItems {
     categoryProduct.innerHTML = `
           <div class="placeholder"></div>
           <div class="recent__item-img">
-            <img src="${item.images[0]}" alt="" />
+            <img src="${item.images[0]}" alt="${item.title}" class="recent__item-img__image" />
           </div>
           <div class="catalog__items-product__content">
             <div class="recent__item-title">${item.title}</div>

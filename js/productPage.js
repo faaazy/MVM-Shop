@@ -6,7 +6,8 @@ export function initProductPage(productsData, showClickedPage) {
       event.target.classList.contains("recent__item-title") ||
       event.target.classList.contains("recent__item-img__image")
     ) {
-      const productCard = event.target.closest(".catalog__items-product");
+      const productCard =
+        event.target.closest(".catalog__items-product") || event.target.closest(".recent__item");
       const productCardTitle = productCard.querySelector(".recent__item-title");
 
       const productCardInfo = productsData.find(
@@ -16,13 +17,17 @@ export function initProductPage(productsData, showClickedPage) {
       const productPage = document.querySelector(".product-page");
       showClickedPage(productPage);
 
-      console.log(productCardInfo);
-
       const productPageContainer = document.querySelector(".product-page .container");
 
       productPageContainer.innerHTML = renderProductPage(productCardInfo);
 
       initSwiper();
+
+      document.dispatchEvent(
+        new CustomEvent("clickedProduct", {
+          detail: { productCardInfo },
+        })
+      );
     }
   });
 }

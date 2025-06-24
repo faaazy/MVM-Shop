@@ -5,6 +5,7 @@ import { initEvents } from "./js/initEvents.js";
 import { initCatalogHandlers } from "./js/catalogHandlers.js";
 import { initCatalogItemsHandlers } from "./js/catalogItemsHandlers.js";
 import { initProductPage } from "./js/productPage.js";
+import { initRecentItems } from "./js/recentItems.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -36,6 +37,9 @@ getData().then((data) => {
 
   // init Game Page
   initProductPage(productsData, showClickedPage);
+
+  // init Recent Items
+  initRecentItems();
 });
 
 // showClickedPage function
@@ -82,6 +86,3 @@ export function initCatalogClass() {
 
 // init Catalog Items Handlers
 initCatalogItemsHandlers();
-
-// // init Game Page
-// initItemPage(productsData);
