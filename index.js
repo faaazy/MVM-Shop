@@ -6,6 +6,7 @@ import { initCatalogHandlers } from "./js/catalogHandlers.js";
 import { initCatalogItemsHandlers } from "./js/catalogItemsHandlers.js";
 import { initProductPage } from "./js/productPage.js";
 import { initRecentItems } from "./js/recentItems.js";
+import { initSearchItems } from "./js/searchItems.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -86,3 +87,6 @@ export function initCatalogClass() {
 
 // init Catalog Items Handlers
 initCatalogItemsHandlers();
+
+// init Search Items
+initSearchItems(productsData, showClickedPage);
