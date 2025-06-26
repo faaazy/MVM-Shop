@@ -1,7 +1,7 @@
 import { debounce } from "./debounce.js";
 
 export function initSearchItems(productsData, showClickedPage) {
-  const search = document.querySelector(".search");
+  const search = document.querySelector(".searchItems");
 
   const debouncedSearch = debounce((value) => {
     const searchValue = value.trim().toLowerCase();
@@ -26,7 +26,7 @@ export function initSearchItems(productsData, showClickedPage) {
 
     renderSearchItems(filteredProducts);
 
-    showClickedPage(document.querySelector(".search"));
+    showClickedPage(search);
   }, 500);
 
   const searchInput = document.querySelector(".search__input");
@@ -37,11 +37,14 @@ export function initSearchItems(productsData, showClickedPage) {
 }
 
 function renderSearchItems(products) {
-  const searchContainer = document.querySelector(".search__grid");
+  const searchContainer = document.querySelector(".searchItems__grid");
+  searchContainer.innerHTML = "";
 
   products.forEach((item) => {
-    const searchItemHTML = `
-        <div class="catalog__items-product">
+    const searchItem = document.createElement("div");
+    searchItem.className = "catalog__items-product";
+
+    searchItem.innerHTML = `
           <div class="placeholder"></div>
           <div class="recent__item-img">
             <img src="${item.images[0]}" alt="" class="recent__item-img__image" />
@@ -67,17 +70,16 @@ function renderSearchItems(products) {
               </div>
             </div>
           </div>
-        </div>
     `;
 
-    searchContainer.insertAdjacentHTML("beforeend", searchItemHTML);
-
-    const img = document.querySelector(".catalog__items-product img");
+    const img = searchItem.querySelector(".catalog__items-product img");
     img.style.display = "none";
 
     img.onload = () => {
-      document.querySelector(".placeholder").remove();
+      searchItem.querySelector(".placeholder").remove();
       img.style.display = "inline";
     };
+
+    searchContainer.insertAdjacentElement("beforeend", searchItem);
   });
 }

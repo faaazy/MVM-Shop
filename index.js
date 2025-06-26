@@ -41,6 +41,9 @@ getData().then((data) => {
 
   // init Recent Items
   initRecentItems();
+
+  // init Search Items
+  initSearchItems(productsData, showClickedPage);
 });
 
 // showClickedPage function
@@ -87,6 +90,3 @@ export function initCatalogClass() {
 
 // init Catalog Items Handlers
 initCatalogItemsHandlers();
-
-// init Search Items
-initSearchItems(productsData, showClickedPage);
