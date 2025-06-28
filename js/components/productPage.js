@@ -1,4 +1,4 @@
-import { initSwiper } from "./swiper.js";
+import { initSwiper } from "../utils/swiper.js";
 
 export function initProductPage(productsData, showClickedPage) {
   document.addEventListener("click", (event) => {

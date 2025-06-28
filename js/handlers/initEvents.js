@@ -1,4 +1,4 @@
-import { showClickedPage } from "./../index.js";
+import { showClickedPage } from "../../index.js";
 
 export function initEvents() {
   const mainHome = document.querySelector(".home");

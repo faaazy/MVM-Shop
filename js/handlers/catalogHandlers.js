@@ -1,4 +1,4 @@
-import { showCatalogItemsPage } from "./../index.js";
+import { showCatalogItemsPage } from "./../../index.js";
 
 export function initCatalogHandlers(showClickedPage, Catalog, uniqueCategories) {
   const mainCatalog = document.querySelector(".catalog");

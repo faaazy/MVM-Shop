@@ -1,5 +1,5 @@
-import { initCatalogClass, catalogItemsClass, showCatalogItemsPage } from "../index.js";
-import CatalogItems from "./../js/filterItems.js";
+import { initCatalogClass, catalogItemsClass, showCatalogItemsPage } from "../../index.js";
+import CatalogItems from "../classes/filterItems.js";
 
 export function initCatalogItemsHandlers() {
   // Catalog Items

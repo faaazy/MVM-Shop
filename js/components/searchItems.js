@@ -1,4 +1,4 @@
-import { debounce } from "./debounce.js";
+import { debounce } from "../utils/debounce.js";
 
 export function initSearchItems(productsData, showClickedPage) {
   const search = document.querySelector(".searchItems");

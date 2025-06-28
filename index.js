@@ -1,12 +1,12 @@
-import RenderHomePageItems from "./js/renderHomePage.js";
-import Catalog from "./js/catalog.js";
-import CatalogItems from "./js/filterItems.js";
-import { initEvents } from "./js/initEvents.js";
-import { initCatalogHandlers } from "./js/catalogHandlers.js";
-import { initCatalogItemsHandlers } from "./js/catalogItemsHandlers.js";
-import { initProductPage } from "./js/productPage.js";
-import { initRecentItems } from "./js/recentItems.js";
-import { initSearchItems } from "./js/searchItems.js";
+import RenderHomePageItems from "./js/classes/renderHomePage.js";
+import Catalog from "./js/classes/catalog.js";
+import CatalogItems from "./js/classes/filterItems.js";
+import { initEvents } from "./js/handlers/initEvents.js";
+import { initCatalogHandlers } from "./js/handlers/catalogHandlers.js";
+import { initCatalogItemsHandlers } from "./js/handlers/catalogItemsHandlers.js";
+import { initProductPage } from "./js/components/productPage.js";
+import { initRecentItems } from "./js/components/recentItems.js";
+import { initSearchItems } from "./js/components/searchItems.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
