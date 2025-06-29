@@ -73,7 +73,7 @@ function renderProductPage(productCardInfo) {
   const productPageHTML = `
     <div class="product-page__title title-2">${productCardInfo.title}</div>
 
-    <div class="product-page__main"> 
+    <div class="product-page__main" data-id="${productCardInfo.id}"> 
       <div class="product-page__main-row">
         <div class="product-page__main-row__left">
           <div class="swiper mySwiper">

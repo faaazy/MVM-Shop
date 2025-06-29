@@ -29,7 +29,7 @@ function renderRecentlyViewed(recentlyViewedItems) {
   const recentlyViewedSlides = recentlyViewedItems
     .map(
       (item) =>
-        `<div class="recent__item swiper-slide">
+        `<div class="recent__item swiper-slide" data-id=${item.id}>
             <div class="recent__item-img">
                 <img src="${item.images[0]}" alt="${item.title}" class="recent__item-img__image" />
             </div>

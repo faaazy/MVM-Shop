@@ -301,6 +301,7 @@ body {
   &:hover {
     img {
       opacity: 1;
+      pointer-events: none;
     }
     background-color: var(--gray-hover);
   }

@@ -14,8 +14,9 @@ export default class CatalogItems {
   renderCatalogItemsProduct = (item) => {
     const categoryProduct = document.createElement("div");
 
-    categoryProduct.className = `catalog__items-product`;
+    categoryProduct.className = `catalog__items-product product-card`;
     categoryProduct.dataset.category = item.category;
+    categoryProduct.dataset.id = item.id;
 
     categoryProduct.innerHTML = `
           <div class="placeholder"></div>
