@@ -7,7 +7,7 @@ import { initCatalogItemsHandlers } from "./js/handlers/catalogItemsHandlers.js"
 import { initProductPage } from "./js/components/productPage.js";
 import { initRecentItems } from "./js/components/recentItems.js";
 import { initSearchItems } from "./js/components/searchItems.js";
-import { initFavorites } from "./js/components/favorites.js";
+import { addToFavorites } from "./js/components/favorites.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -94,7 +94,14 @@ initCatalogItemsHandlers();
 
 // initFavorites
 document.addEventListener("click", (event) => {
-  if (event.target.classList.contains("recent__item-cta__favorite")) {
-    initFavorites(event.target.closest("[data-id]"));
+  console.log(event.target.classList.contains("product-page__main-row__right-buy__favorite"));
+
+  if (
+    event.target.classList.contains("recent__item-cta__favorite") ||
+    event.target.classList.contains("product-page__main-row__right-buy__favorite")
+  ) {
+    const clickedProduct = event.target.closest("[data-id]");
+
+    addToFavorites(clickedProduct, productsData);
   }
 });

@@ -1,4 +1,5 @@
 import { showClickedPage } from "../../index.js";
+import { renderFavoritesPage } from "../components/favorites.js";
 
 export function initEvents() {
   const mainHome = document.querySelector(".home");
@@ -18,6 +19,14 @@ export function initEvents() {
     } else {
       catalogContent.classList.add("hidden");
       catalogIcon.style.transform = "rotate(0deg)";
+    }
+
+    if (event.target.closest("[data-nav-favorites]")) {
+      const favoritesPage = document.querySelector(".favorites");
+
+      renderFavoritesPage(JSON.parse(localStorage.getItem("favorites")));
+
+      showClickedPage(favoritesPage);
     }
   });
 
