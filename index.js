@@ -103,5 +103,9 @@ document.addEventListener("click", (event) => {
     const clickedProduct = event.target.closest("[data-id]");
 
     addToFavorites(clickedProduct, productsData);
+
+    event.target.classList.contains("active")
+      ? event.target.classList.remove("active")
+      : event.target.classList.add("active");
   }
 });

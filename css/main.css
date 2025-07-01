@@ -299,7 +299,17 @@ body {
   font-size: 18px;
   font-weight: 600;
 }
+.fa-heart {
+  font-size: 18px;
+}
+.fa-cart-shopping {
+  font-size: 20px;
+}
 .recent__item-cta__favorite {
+  &.active {
+    color: red;
+    background-color: red;
+  }
   &:hover {
     img {
       opacity: 1;
