@@ -36,7 +36,7 @@ export default class CatalogItems {
               <div class="recent__item-cta">
                 <div class="recent__item-cta__price">$ ${item.price}</div>
                 <div class="recent__item-cta__favorite recent__item-cta__img">
-                  <img src="./img/heart.svg" alt="" />
+                  <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="recent__item-cta__cart recent__item-cta__img">
                   <img src="./img/cart.svg" alt="" />

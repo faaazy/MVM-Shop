@@ -49,7 +49,7 @@ function renderProductPage(productCardInfo) {
         `
       <div class="product-page__reviews-item">
         <div class="product-page__reviews-item__person">
-          <div class="product-page__reviews-item__person-img"><img src="./img/person.svg"></div>
+          <div class="product-page__reviews-item__person-img"><i class="fa-solid fa-user"></i></div>
           <div class="product-page__reviews-item__person-name">
             ${review.reviewerName}
           </div>
@@ -57,7 +57,7 @@ function renderProductPage(productCardInfo) {
 
 
         <div class="product-page__reviews-item__rating">
-          ${'<img src="./img/star.svg" alt="" />'.repeat(review.rating)}
+          ${'<i class="fa-solid fa-star"></i>'.repeat(review.rating)}
         </div>
 
         <div class="product-page__reviews-item__text">${review.comment}</div>
@@ -92,7 +92,7 @@ function renderProductPage(productCardInfo) {
 
           <div class="product-page__main-row__right-rating">
             <div class="product-page__main-row__right-rating__img">
-              <img src="./img/star.svg" alt="" />
+              <i class="fa-solid fa-star"></i>
             </div>
             <div class="product-page__main-row__right-rating__num">${productCardInfo.rating}</div>
             <div class="product-page__main-row__right-rating__reviews">
@@ -103,7 +103,7 @@ function renderProductPage(productCardInfo) {
           <div class="product-page__main-row__right-buy">
             <div class="product-page__main-row__right-buy__price">$${productCardInfo.price}</div>
             <div class="product-page__main-row__right-buy__favorite">
-              <img src="./img/heart.svg" alt="" />
+              <i class="fa-regular fa-heart"></i>
             </div>
             <div class="product-page__main-row__right-buy__btn">Add to cart</div>
           </div>

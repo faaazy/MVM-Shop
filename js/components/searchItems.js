@@ -55,7 +55,7 @@ function renderSearchItems(products) {
             <div class="recent__item-bottom">
               <div class="recent__item-rating">
                 <div class="recent__item-rating__img">
-                  <img src="./img/star.svg" alt="" />
+                  <i class="fa-solid fa-star"></i>
                 </div>
                 <div class="recent__item-rating__num">${item.rating}</div>
                 <div class="recent__item-rating__reviews">${item.reviews.length} reviews</div>
@@ -63,7 +63,7 @@ function renderSearchItems(products) {
               <div class="recent__item-cta">
                 <div class="recent__item-cta__price">$ ${item.price}</div>
                 <div class="recent__item-cta__favorite recent__item-cta__img">
-                  <img src="./img/heart.svg" alt="" />
+                  <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="recent__item-cta__cart recent__item-cta__img">
                   <img src="./img/cart.svg" alt="" />

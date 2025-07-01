@@ -94,8 +94,7 @@ initCatalogItemsHandlers();
 
 // initFavorites
 document.addEventListener("click", (event) => {
-  console.log(event.target.classList.contains("product-page__main-row__right-buy__favorite"));
-
+  console.log(event.target);
   if (
     event.target.classList.contains("recent__item-cta__favorite") ||
     event.target.classList.contains("product-page__main-row__right-buy__favorite")
