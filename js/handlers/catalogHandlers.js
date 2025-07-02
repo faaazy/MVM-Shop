@@ -1,4 +1,5 @@
 import { showCatalogItemsPage } from "./../../index.js";
+import CatalogItems from "../classes/filterItems.js";
 
 export function initCatalogHandlers(showClickedPage, Catalog, uniqueCategories) {
   const mainCatalog = document.querySelector(".catalog");
@@ -18,6 +19,7 @@ export function initCatalogHandlers(showClickedPage, Catalog, uniqueCategories) 
     const clickedItem = event.target.closest(".catalog__item");
 
     showCatalogItemsPage(clickedItem, ".catalog__items-grid");
+    resetActiveItems();
   });
 
   // Catalog List items
@@ -26,5 +28,21 @@ export function initCatalogHandlers(showClickedPage, Catalog, uniqueCategories) 
     const clickedItem = event.target.closest(".catalog__list-item");
 
     showCatalogItemsPage(clickedItem, ".catalog__items-grid");
+    resetActiveItems();
+
+    CatalogItems.setCatalogFilterPricesValues();
+
+    const form = document.querySelector(".catalog__items-left");
+    form.reset();
   });
+}
+
+function resetActiveItems() {
+  const catalogItemsFilterList = document.querySelector(
+    ".catalog__items-filter__sort-list"
+  ).children;
+
+  for (const item of catalogItemsFilterList) {
+    item.classList.remove("active");
+  }
 }

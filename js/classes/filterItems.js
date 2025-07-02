@@ -9,6 +9,23 @@ export default class CatalogItems {
 
     this.baseItems = this.data.filter((item) => item.category === this.category);
     this.filteredItemsArr = [...this.baseItems];
+
+    document.querySelector(".catalog__items-row").addEventListener("click", () => {
+      const catalogItemsRatingCount = document.querySelector(
+        ".catalog__items-left__rating .checkbox-fake"
+      );
+
+      const catalogItemsRatingsArr = document.querySelectorAll(
+        ".catalog__items-grid .recent__item-rating__num"
+      );
+
+      let ratingCount = 0;
+      catalogItemsRatingsArr.forEach((item) =>
+        parseFloat(item.innerHTML) >= 4 ? ratingCount++ : true
+      );
+
+      catalogItemsRatingCount.innerHTML = `Rating 4 or more (${ratingCount})`;
+    });
   }
 
   renderCatalogItemsProduct = (item) => {

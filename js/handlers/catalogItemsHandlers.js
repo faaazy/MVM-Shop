@@ -46,6 +46,7 @@ export function initCatalogItemsHandlers() {
     const clickedItem = event.target.closest(".popular-categories__item");
 
     showCatalogItemsPage(clickedItem, ".catalog__items-grid");
+    resetActiveItems();
 
     CatalogItems.setCatalogFilterPricesValues();
 
@@ -74,4 +75,14 @@ export function initCatalogItemsHandlers() {
         break;
     }
   });
+}
+
+function resetActiveItems() {
+  const catalogItemsFilterList = document.querySelector(
+    ".catalog__items-filter__sort-list"
+  ).children;
+
+  for (const item of catalogItemsFilterList) {
+    item.classList.remove("active");
+  }
 }
