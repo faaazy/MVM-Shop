@@ -47,7 +47,7 @@ getData().then((data) => {
   initSearchItems(productsData, showClickedPage);
 
   // init active classes for favorite
-  initFavoritesClasses();
+  toggleFavoritesClasses();
 });
 
 // showClickedPage function
@@ -57,7 +57,7 @@ export function showClickedPage(requiredPage) {
 
   requiredPage.classList.remove("hidden");
 
-  initFavoritesClasses();
+  toggleFavoritesClasses();
 }
 
 // ShowCatalogItemsPage function
@@ -68,7 +68,7 @@ export function showCatalogItemsPage(clickedItem, catalogContainer) {
     const itemsClass = new Catalog(productsData, catalogContainer);
     itemsClass.createCatalogByCategory(clickedItem);
 
-    initFavoritesClasses();
+    toggleFavoritesClasses();
   }
 }
 
@@ -109,23 +109,23 @@ document.addEventListener("click", (event) => {
 
     toggleFavorites(clickedProduct, productsData);
 
-    event.target.classList.contains("active")
-      ? event.target.classList.remove("active")
-      : event.target.classList.add("active");
+    event.target.classList.toggle("active");
   }
 });
 
-// on first launch
-function initFavoritesClasses() {
+// init toggle favorites classes
+function toggleFavoritesClasses() {
   document.querySelectorAll("[data-id]").forEach((product) => {
     const productId = product.dataset.id;
 
-    const heartIcon = product.querySelector(".recent__item-cta__favorite");
+    const heartIcon =
+      product.querySelector(".recent__item-cta__favorite") ||
+      product.querySelector(".product-page__main-row__right-buy__favorite");
 
     const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-    favorites.forEach((item) => {
-      if (item.id == parseInt(productId)) heartIcon.classList.add("active");
-    });
+    const favoritesProduct = favorites.find((item) => item.id == productId);
+
+    favoritesProduct ? heartIcon.classList.add("active") : heartIcon.classList.remove("active");
   });
 }

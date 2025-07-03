@@ -6,10 +6,15 @@ export function toggleFavorites(clickedProduct, productsData) {
 
   if (clickedProductIndex === -1) {
     const product = productsData.find((item) => item.id === productId);
-
-    product ? favorites.push(product) : true;
+    if (product) {
+      favorites.push(product);
+      // clickedProduct.querySelector(".recent__item-cta__favorite").classList.add("active");
+    }
   } else {
     favorites.splice(clickedProductIndex, 1);
+    // clickedProduct.querySelector(".recent__item-cta__favorite").classList.remove("active");
+
+    renderFavoritesPage(favorites);
   }
 
   localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -49,7 +54,7 @@ export function renderFavoritesPage(favorites) {
               </div>
               <div class="recent__item-cta">
                 <div class="recent__item-cta__price">$ ${item.price}</div>
-                <div class="recent__item-cta__favorite recent__item-cta__img">
+                <div class="recent__item-cta__favorite recent__item-cta__img active">
                   <i class="fa-regular fa-heart"></i>
                 </div>
                 <div class="recent__item-cta__cart recent__item-cta__img">

@@ -70,6 +70,13 @@ function renderProductPage(productCardInfo) {
     )
     .join("");
 
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  const isFavorites = favorites.find((item) => item.id == productCardInfo.id);
+  let heartIconClass = "";
+
+  isFavorites ? (heartIconClass = "active") : (heartIconClass = "");
+
   const productPageHTML = `
     <div class="product-page__title title-2">${productCardInfo.title}</div>
 
@@ -102,7 +109,7 @@ function renderProductPage(productCardInfo) {
 
           <div class="product-page__main-row__right-buy">
             <div class="product-page__main-row__right-buy__price">$${productCardInfo.price}</div>
-            <div class="product-page__main-row__right-buy__favorite">
+            <div class="product-page__main-row__right-buy__favorite ${heartIconClass}">
               <i class="fa-regular fa-heart"></i>
             </div>
             <div class="product-page__main-row__right-buy__btn">Add to cart</div>
