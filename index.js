@@ -7,7 +7,7 @@ import { initCatalogItemsHandlers } from "./js/handlers/catalogItemsHandlers.js"
 import { initProductPage } from "./js/components/productPage.js";
 import { initRecentItems } from "./js/components/recentItems.js";
 import { initSearchItems } from "./js/components/searchItems.js";
-import { addToFavorites } from "./js/components/favorites.js";
+import { toggleFavorites } from "./js/components/favorites.js";
 
 async function getData() {
   const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -45,6 +45,9 @@ getData().then((data) => {
 
   // init Search Items
   initSearchItems(productsData, showClickedPage);
+
+  // init active classes for favorite
+  initFavoritesClasses();
 });
 
 // showClickedPage function
@@ -53,6 +56,8 @@ export function showClickedPage(requiredPage) {
   for (const item of mainChildren) item.classList.add("hidden");
 
   requiredPage.classList.remove("hidden");
+
+  initFavoritesClasses();
 }
 
 // ShowCatalogItemsPage function
@@ -62,6 +67,8 @@ export function showCatalogItemsPage(clickedItem, catalogContainer) {
 
     const itemsClass = new Catalog(productsData, catalogContainer);
     itemsClass.createCatalogByCategory(clickedItem);
+
+    initFavoritesClasses();
   }
 }
 
@@ -100,10 +107,25 @@ document.addEventListener("click", (event) => {
   ) {
     const clickedProduct = event.target.closest("[data-id]");
 
-    addToFavorites(clickedProduct, productsData);
+    toggleFavorites(clickedProduct, productsData);
 
     event.target.classList.contains("active")
       ? event.target.classList.remove("active")
       : event.target.classList.add("active");
   }
 });
+
+// on first launch
+function initFavoritesClasses() {
+  document.querySelectorAll("[data-id]").forEach((product) => {
+    const productId = product.dataset.id;
+
+    const heartIcon = product.querySelector(".recent__item-cta__favorite");
+
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favorites.forEach((item) => {
+      if (item.id == parseInt(productId)) heartIcon.classList.add("active");
+    });
+  });
+}

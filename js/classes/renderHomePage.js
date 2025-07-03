@@ -9,7 +9,6 @@ export default class RenderHomePageItems {
       const popularCategoryItem = document.createElement("div");
       popularCategoryItem.className = "popular-categories__item product-card";
       popularCategoryItem.dataset.category = this.data[i].category;
-      popularCategoryItem.dataset.id = this.data[i].id;
 
       popularCategoryItem.innerHTML = `
           <div class="placeholder"></div>

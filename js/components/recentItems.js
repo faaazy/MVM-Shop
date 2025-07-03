@@ -21,7 +21,6 @@ export function initRecentItems() {
 
 function renderRecentlyViewed(recentlyViewedItems) {
   const container = document.querySelector(".recent .container");
-  console.log(container);
 
   if (recentlyViewedItems.length == 0) {
     container.innerHTML = "";

@@ -1,12 +1,18 @@
-export function addToFavorites(clickedProduct, productsData) {
-  const product = productsData.find((item) => item.id === parseInt(clickedProduct.dataset.id));
-
+export function toggleFavorites(clickedProduct, productsData) {
+  const productId = parseInt(clickedProduct.dataset.id);
   const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
-  if (!favorites.find((item) => item.id === product.id)) {
-    favorites.push(product);
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+  const clickedProductIndex = favorites.findIndex((item) => item.id === productId);
+
+  if (clickedProductIndex === -1) {
+    const product = productsData.find((item) => item.id === productId);
+
+    product ? favorites.push(product) : true;
+  } else {
+    favorites.splice(clickedProductIndex, 1);
   }
+
+  localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
 export function renderFavoritesPage(favorites) {
