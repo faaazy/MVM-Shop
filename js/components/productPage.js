@@ -1,35 +1,24 @@
 import { initSwiper } from "../utils/swiper.js";
 
-export function initProductPage(productsData, showClickedPage) {
-  document.addEventListener("click", (event) => {
-    if (
-      event.target.classList.contains("recent__item-title") ||
-      event.target.classList.contains("recent__item-img__image")
-    ) {
-      const productCard =
-        event.target.closest(".catalog__items-product") || event.target.closest(".recent__item");
-      const productCardTitle = productCard.querySelector(".recent__item-title");
+export function initProductPage(productsData, showClickedPage, clickedProduct) {
+  const productCardTitle = clickedProduct.querySelector(".recent__item-title");
 
-      const productCardInfo = productsData.find(
-        (item) => item.title === productCardTitle.innerText
-      );
+  const productCardInfo = productsData.find((item) => item.title === productCardTitle.innerText);
 
-      const productPage = document.querySelector(".product-page");
-      showClickedPage(productPage);
+  const productPage = document.querySelector(".product-page");
+  showClickedPage(productPage);
 
-      const productPageContainer = document.querySelector(".product-page .container");
+  const productPageContainer = document.querySelector(".product-page .container");
 
-      productPageContainer.innerHTML = renderProductPage(productCardInfo);
+  productPageContainer.innerHTML = renderProductPage(productCardInfo);
 
-      initSwiper();
+  initSwiper();
 
-      document.dispatchEvent(
-        new CustomEvent("clickedProduct", {
-          detail: { productCardInfo },
-        })
-      );
-    }
-  });
+  document.dispatchEvent(
+    new CustomEvent("clickedProduct", {
+      detail: { productCardInfo },
+    })
+  );
 }
 
 function renderProductPage(productCardInfo) {

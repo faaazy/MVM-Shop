@@ -5,6 +5,8 @@ export default class RenderHomePageItems {
   }
 
   createPopularCategories() {
+    console.log(this.data);
+
     for (let i = 0; i < 4; i++) {
       const popularCategoryItem = document.createElement("div");
       popularCategoryItem.className = "popular-categories__item product-card";

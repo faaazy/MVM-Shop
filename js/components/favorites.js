@@ -8,11 +8,9 @@ export function toggleFavorites(clickedProduct, productsData) {
     const product = productsData.find((item) => item.id === productId);
     if (product) {
       favorites.push(product);
-      // clickedProduct.querySelector(".recent__item-cta__favorite").classList.add("active");
     }
   } else {
     favorites.splice(clickedProductIndex, 1);
-    // clickedProduct.querySelector(".recent__item-cta__favorite").classList.remove("active");
 
     renderFavoritesPage(favorites);
   }
@@ -74,5 +72,22 @@ export function renderFavoritesPage(favorites) {
     };
 
     favoritesContainer.insertAdjacentElement("beforeend", favoritesItem);
+  });
+}
+
+// init toggle favorites classes
+export function toggleFavoritesClasses() {
+  document.querySelectorAll("[data-id]").forEach((product) => {
+    const productId = product.dataset.id;
+
+    const heartIcon =
+      product.querySelector(".recent__item-cta__favorite") ||
+      product.querySelector(".product-page__main-row__right-buy__favorite");
+
+    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    const favoritesProduct = favorites.find((item) => item.id == productId);
+
+    favoritesProduct ? heartIcon.classList.add("active") : heartIcon.classList.remove("active");
   });
 }

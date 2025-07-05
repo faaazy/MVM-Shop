@@ -1,7 +1,9 @@
 import { showClickedPage } from "../../index.js";
 import { renderFavoritesPage } from "../components/favorites.js";
+import { toggleFavorites } from "../components/favorites.js";
+import { initProductPage } from "../components/productPage.js";
 
-export function initEvents() {
+export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
 
   // CatalogContent Toggle
@@ -21,12 +23,42 @@ export function initEvents() {
       catalogIcon.style.transform = "rotate(0deg)";
     }
 
+    // init product page
+    if (
+      event.target.classList.contains("recent__item-title") ||
+      event.target.classList.contains("recent__item-img__image")
+    ) {
+      const clickedProduct =
+        event.target.closest(".catalog__items-product") || event.target.closest(".recent__item");
+      initProductPage(productsData, showClickedPage, clickedProduct);
+    }
+
+    // init favorites page
     if (event.target.closest("[data-nav-favorites]")) {
       const favoritesPage = document.querySelector(".favorites");
 
       renderFavoritesPage(JSON.parse(localStorage.getItem("favorites")));
 
       showClickedPage(favoritesPage);
+    }
+
+    // init cart page
+    if (event.target.closest("[data-nav-cart]")) {
+      const cartPage = document.querySelector(".cart");
+
+      showClickedPage(cartPage);
+    }
+
+    // initFavorites
+    if (
+      event.target.classList.contains("recent__item-cta__favorite") ||
+      event.target.classList.contains("product-page__main-row__right-buy__favorite")
+    ) {
+      const clickedProduct = event.target.closest("[data-id]");
+
+      toggleFavorites(clickedProduct, productsData);
+
+      event.target.classList.toggle("active");
     }
   });
 

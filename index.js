@@ -7,50 +7,56 @@ import { initCatalogItemsHandlers } from "./js/handlers/catalogItemsHandlers.js"
 import { initProductPage } from "./js/components/productPage.js";
 import { initRecentItems } from "./js/components/recentItems.js";
 import { initSearchItems } from "./js/components/searchItems.js";
-import { toggleFavorites } from "./js/components/favorites.js";
+import { toggleFavoritesClasses } from "./js/components/favorites.js";
 
 async function getData() {
-  const res = await fetch("https://dummyjson.com/products?limit=0");
-  const data = await res.json();
+  try {
+    const res = await fetch("https://dummyjson.com/products?limit=0");
+    if (!res) throw new Error("HTTP error ", res.status);
 
-  return data;
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-const uniqueCategories = [];
 const productsData = [];
+const uniqueCategories = [];
 
 const catalogItems = document.querySelector(".catalog-items");
 
-// Render Home Items
-getData().then((data) => {
-  data.products.forEach((item) => {
-    productsData.push(item);
+async function initApp() {
+  try {
+    const data = await getData();
 
-    if (uniqueCategories.some((el) => el.category === item.category)) return;
+    data.products.forEach((item) => {
+      productsData.push(item);
 
-    uniqueCategories.push(item);
-  });
+      if (uniqueCategories.some((el) => el.category === item.category)) return;
 
-  const popularCategories = new RenderHomePageItems(uniqueCategories, ".popular-categories__grid");
-  popularCategories.createPopularCategories();
+      uniqueCategories.push(item);
+    });
 
-  const catalogList = new RenderHomePageItems(uniqueCategories, ".header__catalog-content");
-  catalogList.fillCatalogList();
+    const popularCategories = new RenderHomePageItems(
+      uniqueCategories,
+      ".popular-categories__grid"
+    );
+    popularCategories.createPopularCategories();
 
-  // init Game Page
-  initProductPage(productsData, showClickedPage);
+    const catalogList = new RenderHomePageItems(uniqueCategories, ".header__catalog-content");
+    catalogList.fillCatalogList();
 
-  // init Recent Items
-  initRecentItems();
+    // initProductPage(productsData, showClickedPage);
+    initSearchItems(productsData, showClickedPage);
+    initRecentItems();
+    toggleFavoritesClasses();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-  // init Search Items
-  initSearchItems(productsData, showClickedPage);
+initApp();
 
-  // init active classes for favorite
-  toggleFavoritesClasses();
-});
-
-// showClickedPage function
 export function showClickedPage(requiredPage) {
   const mainChildren = document.querySelector("main").children;
   for (const item of mainChildren) item.classList.add("hidden");
@@ -60,7 +66,6 @@ export function showClickedPage(requiredPage) {
   toggleFavoritesClasses();
 }
 
-// ShowCatalogItemsPage function
 export function showCatalogItemsPage(clickedItem, catalogContainer) {
   if (clickedItem) {
     showClickedPage(catalogItems);
@@ -72,10 +77,8 @@ export function showCatalogItemsPage(clickedItem, catalogContainer) {
   }
 }
 
-// init events
-initEvents();
+initEvents(productsData);
 
-// init catalog handlers
 initCatalogHandlers(showClickedPage, Catalog, productsData, uniqueCategories);
 
 // Init Catalog Class func
@@ -96,36 +99,4 @@ export function initCatalogClass() {
   }
 }
 
-// init Catalog Items Handlers
 initCatalogItemsHandlers();
-
-// initFavorites
-document.addEventListener("click", (event) => {
-  if (
-    event.target.classList.contains("recent__item-cta__favorite") ||
-    event.target.classList.contains("product-page__main-row__right-buy__favorite")
-  ) {
-    const clickedProduct = event.target.closest("[data-id]");
-
-    toggleFavorites(clickedProduct, productsData);
-
-    event.target.classList.toggle("active");
-  }
-});
-
-// init toggle favorites classes
-function toggleFavoritesClasses() {
-  document.querySelectorAll("[data-id]").forEach((product) => {
-    const productId = product.dataset.id;
-
-    const heartIcon =
-      product.querySelector(".recent__item-cta__favorite") ||
-      product.querySelector(".product-page__main-row__right-buy__favorite");
-
-    const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-    const favoritesProduct = favorites.find((item) => item.id == productId);
-
-    favoritesProduct ? heartIcon.classList.add("active") : heartIcon.classList.remove("active");
-  });
-}
