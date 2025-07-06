@@ -4,7 +4,6 @@ import CatalogItems from "./js/classes/filterItems.js";
 import { initEvents } from "./js/handlers/initEvents.js";
 import { initCatalogHandlers } from "./js/handlers/catalogHandlers.js";
 import { initCatalogItemsHandlers } from "./js/handlers/catalogItemsHandlers.js";
-import { initProductPage } from "./js/components/productPage.js";
 import { initRecentItems } from "./js/components/recentItems.js";
 import { initSearchItems } from "./js/components/searchItems.js";
 import { toggleFavoritesClasses } from "./js/components/favorites.js";

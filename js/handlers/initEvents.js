@@ -1,7 +1,7 @@
 import { showClickedPage } from "../../index.js";
-import { renderFavoritesPage } from "../components/favorites.js";
-import { toggleFavorites } from "../components/favorites.js";
 import { initProductPage } from "../components/productPage.js";
+import { renderFavoritesPage, toggleFavorites } from "../components/favorites.js";
+import { renderCartPage, toggleCart } from "../components/cart.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -46,6 +46,8 @@ export function initEvents(productsData) {
     if (event.target.closest("[data-nav-cart]")) {
       const cartPage = document.querySelector(".cart");
 
+      renderCartPage(JSON.parse(localStorage.getItem("cartItems")));
+
       showClickedPage(cartPage);
     }
 
@@ -59,6 +61,21 @@ export function initEvents(productsData) {
       toggleFavorites(clickedProduct, productsData);
 
       event.target.classList.toggle("active");
+    }
+
+    // initCart
+    console.log(event.target);
+
+    if (
+      event.target.classList.contains("recent__item-cta__cart") ||
+      event.target.classList.contains("product-page__main-row__right-buy__btn")
+    ) {
+      const clickedProduct = event.target.closest("[data-id]");
+      console.log(clickedProduct);
+
+      toggleCart(clickedProduct, productsData);
+
+      // event.target.classList.toggle("active");
     }
   });
 
