@@ -1,7 +1,12 @@
 import { showClickedPage } from "../../index.js";
 import { initProductPage } from "../components/productPage.js";
 import { renderFavoritesPage, toggleFavorites } from "../components/favorites.js";
-import { renderCartPage, toggleCart, changeCartItemCounter } from "../components/cart.js";
+import {
+  renderCartPage,
+  toggleCart,
+  changeCartItemCounter,
+  toggleCartIcons,
+} from "../components/cart.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -69,8 +74,16 @@ export function initEvents(productsData) {
       event.target.classList.contains("product-page__main-row__right-buy__btn")
     ) {
       const clickedProduct = event.target.closest("[data-id]");
+      const cartPage = document.querySelector(".cart");
 
       toggleCart(clickedProduct, productsData);
+
+      if (event.target.classList.contains("active")) {
+        showClickedPage(cartPage);
+        renderCartPage(JSON.parse(localStorage.getItem("cartItems")));
+      }
+
+      toggleCartIcons();
 
       // event.target.classList.toggle("active");
     }

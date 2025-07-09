@@ -7,6 +7,7 @@ import { initCatalogItemsHandlers } from "./js/handlers/catalogItemsHandlers.js"
 import { initRecentItems } from "./js/components/recentItems.js";
 import { initSearchItems } from "./js/components/searchItems.js";
 import { toggleFavoritesClasses } from "./js/components/favorites.js";
+import { toggleCartIcons } from "./js/components/cart.js";
 
 async function getData() {
   try {
@@ -49,6 +50,9 @@ async function initApp() {
     initSearchItems(productsData, showClickedPage);
     initRecentItems();
     toggleFavoritesClasses();
+    toggleCartIcons();
+
+    initEvents(productsData);
   } catch (error) {
     console.error(error);
   }
@@ -63,6 +67,7 @@ export function showClickedPage(requiredPage) {
   requiredPage.classList.remove("hidden");
 
   toggleFavoritesClasses();
+  toggleCartIcons();
 }
 
 export function showCatalogItemsPage(clickedItem, catalogContainer) {
@@ -73,10 +78,9 @@ export function showCatalogItemsPage(clickedItem, catalogContainer) {
     itemsClass.createCatalogByCategory(clickedItem);
 
     toggleFavoritesClasses();
+    toggleCartIcons();
   }
 }
-
-initEvents(productsData);
 
 initCatalogHandlers(showClickedPage, Catalog, productsData, uniqueCategories);
 
