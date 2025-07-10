@@ -11,6 +11,7 @@ export function toggleCart(clickedProduct, productsData) {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
     renderCartPage(cartItems);
+    renderCartTotalPage();
 
     return;
   } else {
@@ -80,6 +81,8 @@ export function renderCartPage(cartItems) {
     };
 
     cartItemsContainer.insertAdjacentElement("beforeend", cartItem);
+
+    renderCartTotalPage();
   });
 }
 
@@ -98,6 +101,7 @@ export function changeCartItemCounter(clickedSymbol, productsData) {
         counterNum.innerHTML--;
 
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
+        renderCartTotalPage();
       } else if (parseInt(counterNum.innerHTML) == 1) {
         clickedCartProduct.cart = 0;
 
@@ -105,6 +109,7 @@ export function changeCartItemCounter(clickedSymbol, productsData) {
 
         toggleCart(cartItem, productsData);
         toggleCartIcons();
+        renderCartTotalPage();
       }
       break;
 
@@ -113,6 +118,7 @@ export function changeCartItemCounter(clickedSymbol, productsData) {
       counterNum.innerHTML++;
 
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      renderCartTotalPage();
       break;
 
     default:
@@ -136,5 +142,25 @@ export function toggleCartIcons() {
     }
 
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    renderCartTotalPage();
   });
+}
+
+function renderCartTotalPage() {
+  const cartTotalContainer = document.querySelector(".cart__right-sum");
+
+  const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+  const cartItemsLength = cartItems.reduce((total, item) => {
+    return total + parseInt(item.cart);
+  }, 0);
+
+  const cartItemsTotal = cartItems.reduce((total, item) => {
+    return total + parseInt(item.price) * item.cart;
+  }, 0);
+
+  cartTotalContainer.innerHTML = `
+      <div class="cart__right-sum__items">${cartItemsLength} items</div>
+      <div class="cart__right-sum__total">$ ${cartItemsTotal}</div>
+    `;
 }
