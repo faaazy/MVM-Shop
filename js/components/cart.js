@@ -26,64 +26,96 @@ export function toggleCart(clickedProduct, productsData) {
 }
 
 export function renderCartPage(cartItems) {
-  const cartTitle = document.querySelector(".cart__title");
+  if (cartItems.length == 0) {
+    renderEmptyCartPage();
+  } else {
+    document.querySelector(".cart .cart__row")?.classList.remove("hidden");
+    document.querySelector(".cart__empty")?.remove();
 
-  cartTitle.innerHTML = `Cart <span>${cartItems.length} items</span>`;
+    const cartTitle = document.querySelector(".cart__title");
 
-  const cartItemsContainer = document.querySelector(".cart__left");
+    cartTitle.innerHTML = `Cart <span>${cartItems.length} items</span>`;
 
-  cartItemsContainer.innerHTML = "";
+    const cartItemsContainer = document.querySelector(".cart__left");
 
-  cartItems.forEach((item) => {
-    const cartItem = document.createElement("div");
-    cartItem.className = "catalog__items-product";
-    cartItem.dataset.id = item.id;
+    cartItemsContainer.innerHTML = "";
 
-    cartItem.innerHTML = `
-        <div class="placeholder"></div>
-        <div class="recent__item-img">
-            <img src="${item.images[0]}" alt="" class="recent__item-img__image" />
-        </div>
-        <div class="catalog__items-product__content">
-          <div class="recent__item-title">${item.title}</div>
-          <div class="recent__item-bottom">
-              <div class="recent__item-cta">
-                  <div class="recent__item-cta__price">$ ${item.price}</div>
-                  <div class="recent__item-cta__favorite recent__item-cta__img active">
-                  <i class="fa-regular fa-heart"></i>
-                  </div>
-                  <div class="recent__item-cta__cart recent__item-cta__img">
-                  <img src="./img/cart.svg" alt="" />
-                  </div>
-              </div>
+    cartItems.forEach((item) => {
+      const cartItem = document.createElement("div");
+      cartItem.className = "catalog__items-product";
+      cartItem.dataset.id = item.id;
+
+      cartItem.innerHTML = `
+          <div class="placeholder"></div>
+          <div class="recent__item-img">
+              <img src="${item.images[0]}" alt="" class="recent__item-img__image" />
           </div>
-          <div class="recent__item-stock ${
-            item.availabilityStatus == "In Stock" ? "instock" : "outofstock"
-          }">${item.availabilityStatus}</div>
-          <div class="recent__item-counter">
-          <div class="recent__item-counter__decrement" data-counter="minus">
-              <i class="fa-solid fa-minus"></i>
+          <div class="catalog__items-product__content">
+            <div class="recent__item-title">${item.title}</div>
+            <div class="recent__item-bottom">
+                <div class="recent__item-cta">
+                    <div class="recent__item-cta__price">$ ${item.price}</div>
+                    <div class="recent__item-cta__favorite recent__item-cta__img active">
+                    <i class="fa-regular fa-heart"></i>
+                    </div>
+                    <div class="recent__item-cta__cart recent__item-cta__img">
+                    <img src="./img/cart.svg" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="recent__item-stock ${
+              item.availabilityStatus == "In Stock" ? "instock" : "outofstock"
+            }">${item.availabilityStatus}</div>
+            <div class="recent__item-counter">
+            <div class="recent__item-counter__decrement" data-counter="minus">
+                <i class="fa-solid fa-minus"></i>
+            </div>
+            <div class="recent__item-counter__num">${item.cart}</div>
+            <div class="recent__item-counter__increment" data-counter="plus">
+                <i class="fa-solid fa-plus"></i>
+            </div>
+            </div>
           </div>
-          <div class="recent__item-counter__num">${item.cart}</div>
-          <div class="recent__item-counter__increment" data-counter="plus">
-              <i class="fa-solid fa-plus"></i>
-          </div>
-          </div>
-        </div>
-      `;
+        `;
 
-    const img = cartItem.querySelector(".catalog__items-product img");
-    img.style.display = "none";
+      const img = cartItem.querySelector(".catalog__items-product img");
+      img.style.display = "none";
 
-    img.onload = () => {
-      cartItem.querySelector(".placeholder").remove();
-      img.style.display = "inline";
-    };
+      img.onload = () => {
+        cartItem.querySelector(".placeholder").remove();
+        img.style.display = "inline";
+      };
 
-    cartItemsContainer.insertAdjacentElement("beforeend", cartItem);
+      cartItemsContainer.insertAdjacentElement("beforeend", cartItem);
 
-    renderCartTotalPage();
-  });
+      renderCartTotalPage();
+    });
+  }
+}
+
+function renderCartTotalPage() {
+  const cartTotalContainer = document.querySelector(".cart__right");
+
+  const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+  const cartItemsLength = cartItems.reduce((total, item) => {
+    return total + parseInt(item.cart);
+  }, 0);
+
+  const cartItemsTotal = cartItems.reduce((total, item) => {
+    return total + parseInt(item.price) * item.cart;
+  }, 0);
+
+  cartTotalContainer.innerHTML = `
+      <div class="cart__right-title">Total:</div>
+      <div class="cart__right-sum">
+        <div class="cart__right-sum__items">${cartItemsLength} items</div>
+        <div class="cart__right-sum__total">$ ${cartItemsTotal}</div>
+      </div>
+      <div class="cart__right-btn">
+        <button>Go to checkout</button>
+      </div>
+    `;
 }
 
 export function changeCartItemCounter(clickedSymbol, productsData) {
@@ -127,13 +159,14 @@ export function changeCartItemCounter(clickedSymbol, productsData) {
 }
 
 export function toggleCartIcons() {
+  const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  if (cartItems.length == 0) return;
+
   document.querySelectorAll("[data-id]").forEach((product) => {
     const productId = product.dataset.id;
 
     const cartIcon = product.querySelector(".recent__item-cta__cart");
-    // product.querySelector(".product-page__main-row__right-buy__favorite");
-
-    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    const cartBtn = product.querySelector(".product-page__main-row__right-buy__btn");
 
     const cartProduct = cartItems.find((item) => item.id == productId);
 
@@ -141,26 +174,33 @@ export function toggleCartIcons() {
       cartProduct ? cartIcon.classList.add("active") : cartIcon.classList.remove("active");
     }
 
+    if (cartBtn) {
+      cartBtn.innerHTML = "Go to cart";
+
+      cartProduct ? cartBtn.classList.add("active") : cartBtn.classList.remove("active");
+    }
+
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     renderCartTotalPage();
   });
 }
 
-function renderCartTotalPage() {
-  const cartTotalContainer = document.querySelector(".cart__right-sum");
+function renderEmptyCartPage() {
+  const cartContainer = document.querySelector(".cart .container");
 
-  const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  document.querySelector(".cart .cart__row")?.classList.add("hidden");
+  document.querySelector(".cart__empty")?.remove();
 
-  const cartItemsLength = cartItems.reduce((total, item) => {
-    return total + parseInt(item.cart);
-  }, 0);
-
-  const cartItemsTotal = cartItems.reduce((total, item) => {
-    return total + parseInt(item.price) * item.cart;
-  }, 0);
-
-  cartTotalContainer.innerHTML = `
-      <div class="cart__right-sum__items">${cartItemsLength} items</div>
-      <div class="cart__right-sum__total">$ ${cartItemsTotal}</div>
-    `;
+  cartContainer.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div class="cart__empty">
+      <div class="cart__empty-img"><i class="fa-solid fa-basket-shopping"></i></div>
+      <div class="cart__empty-text">Your Cart is empty</div>
+      <div class="cart__empty-advice">
+        Use the <span class="cart__empty-advice__link">catalog</span> or search 
+      </div>
+    </div>
+    `
+  );
 }

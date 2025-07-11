@@ -6,7 +6,8 @@ export function initCatalogHandlers(showClickedPage, Catalog, uniqueCategories) 
 
   // Show Catalog
   const categoriesBtn = document.querySelector(".banner__text-btn");
-  categoriesBtn.addEventListener("click", () => {
+
+  categoriesBtn.addEventListener("click", (event) => {
     showClickedPage(mainCatalog);
 
     const allCategories = new Catalog(uniqueCategories, ".catalog__grid");

@@ -1,12 +1,17 @@
 import { showClickedPage } from "../../index.js";
 import { initProductPage } from "../components/productPage.js";
-import { renderFavoritesPage, toggleFavorites } from "../components/favorites.js";
+import {
+  renderFavoritesPage,
+  toggleFavorites,
+  toggleFavoritesClasses,
+} from "../components/favorites.js";
 import {
   renderCartPage,
   toggleCart,
   changeCartItemCounter,
   toggleCartIcons,
 } from "../components/cart.js";
+import Catalog from "../classes/catalog.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -65,7 +70,8 @@ export function initEvents(productsData) {
 
       toggleFavorites(clickedProduct, productsData);
 
-      event.target.classList.toggle("active");
+      toggleFavoritesClasses();
+      toggleCartIcons();
     }
 
     // initCart
@@ -83,14 +89,29 @@ export function initEvents(productsData) {
         renderCartPage(JSON.parse(localStorage.getItem("cartItems")));
       }
 
+      toggleFavoritesClasses();
       toggleCartIcons();
-
-      // event.target.classList.toggle("active");
     }
 
     // init counter
     if (event.target.closest(".recent__item-counter")) {
       changeCartItemCounter(event.target, productsData);
+    }
+
+    // init empty cart catalog click
+    if (event.target.classList.contains("cart__empty-advice__link")) {
+      showClickedPage(document.querySelector(".catalog"));
+
+      const uniqueCategories = [];
+
+      productsData.forEach((item) => {
+        if (uniqueCategories.some((el) => el.category === item.category)) return;
+
+        uniqueCategories.push(item);
+      });
+
+      const allCategories = new Catalog(uniqueCategories, ".catalog__grid");
+      allCategories.createCatalog();
     }
   });
 
