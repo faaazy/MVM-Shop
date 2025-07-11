@@ -191,6 +191,9 @@ function renderEmptyCartPage() {
   document.querySelector(".cart .cart__row")?.classList.add("hidden");
   document.querySelector(".cart__empty")?.remove();
 
+  const cartTitle = document.querySelector(".cart__title");
+  cartTitle.innerHTML = `Cart <span></span>`;
+
   cartContainer.insertAdjacentHTML(
     "beforeend",
     `
