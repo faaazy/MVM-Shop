@@ -12,6 +12,7 @@ import {
   toggleCartIcons,
 } from "../components/cart.js";
 import Catalog from "../classes/catalog.js";
+import { initCheckoutPage } from "../components/checkout.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -112,6 +113,13 @@ export function initEvents(productsData) {
 
       const allCategories = new Catalog(uniqueCategories, ".catalog__grid");
       allCategories.createCatalog();
+    }
+
+    // init checkout
+    if (event.target.classList.contains("cart__right-btn")) {
+      showClickedPage(document.querySelector(".checkout"));
+
+      initCheckoutPage();
     }
   });
 

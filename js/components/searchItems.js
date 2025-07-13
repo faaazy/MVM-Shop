@@ -42,7 +42,7 @@ function renderSearchItems(products) {
 
   products.forEach((item) => {
     const searchItem = document.createElement("div");
-    searchItem.className = "catalog__items-product";
+    searchItem.className = "catalog__items-product section-bg";
     searchItem.dataset.id = item.id;
 
     searchItem.innerHTML = `

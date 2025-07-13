@@ -42,7 +42,7 @@ export function renderCartPage(cartItems) {
 
     cartItems.forEach((item) => {
       const cartItem = document.createElement("div");
-      cartItem.className = "catalog__items-product";
+      cartItem.className = "catalog__items-product section-bg";
       cartItem.dataset.id = item.id;
 
       cartItem.innerHTML = `
@@ -197,7 +197,7 @@ function renderEmptyCartPage() {
   cartContainer.insertAdjacentHTML(
     "beforeend",
     `
-    <div class="cart__empty">
+    <div class="cart__empty section-bg">
       <div class="cart__empty-img"><i class="fa-solid fa-basket-shopping"></i></div>
       <div class="cart__empty-text">Your Cart is empty</div>
       <div class="cart__empty-advice">

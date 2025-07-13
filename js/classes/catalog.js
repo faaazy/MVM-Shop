@@ -19,7 +19,7 @@ export default class Catalog {
     this.uniqueItems.forEach((item) => {
       const catalogItem = document.createElement("div");
 
-      catalogItem.className = `catalog__item`;
+      catalogItem.className = `catalog__item section-bg`;
       catalogItem.dataset.category = item.category;
 
       catalogItem.innerHTML = `
@@ -47,7 +47,7 @@ export default class Catalog {
       if (item.category == elem.dataset.category) {
         const categoryProduct = document.createElement("div");
 
-        categoryProduct.className = `catalog__items-product product-card`;
+        categoryProduct.className = `catalog__items-product product-card section-bg`;
         categoryProduct.dataset.category = item.category;
         categoryProduct.dataset.id = item.id;
 

@@ -209,7 +209,7 @@
             <div class="cart__left layout-rows">
               <!-- cart items from js -->
             </div>
-            <div class="cart__right">
+            <div class="cart__right section-bg">
               <!-- from js -->
             </div>
           </div>
@@ -218,12 +218,61 @@
 
       <div class="checkout hidden">
         <div class="container">
-          <form class="checkout__form">
-            <div class="checkout__form-item">
-              <label for="phone" class="checkout__form-item__label">Phone number</label>
-              <input type="number" name="phone" class="checkout__form-item__input" />
+          <div class="checkout__return">Return to cart</div>
+          <div class="checkout__title title-2">Checkout</div>
+
+          <div class="checkout__row">
+            <div class="checkout__row-left">
+              <div class="checkout__payment section-bg">
+                <div class="checkout__payment-title">Payment method</div>
+                <div class="checkout__payment-badges__swiper">
+                  <div class="swiper paymentSwiper">
+                    <div class="swiper-wrapper">
+                      <div class="swiper-slide paymentSwiper__slide">
+                        <img src="./img/mastercard.png" alt="" />
+                      </div>
+
+                      <div class="swiper-slide paymentSwiper__slide">
+                        <img src="./img/visa.png" alt="" />
+                      </div>
+
+                      <div class="swiper-slide paymentSwiper__slide">
+                        <img src="./img/applepay.png" alt="" />
+                      </div>
+
+                      <div class="swiper-slide paymentSwiper__slide">
+                        <img src="./img/PayPal.jpg" alt="" />
+                      </div>
+
+                      <div class="swiper-slide paymentSwiper__slide">
+                        <img src="./img/googlepay.png" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="swiper-button-next swiper-button"></div>
+                  <div class="swiper-button-prev swiper-button"></div>
+                </div>
+              </div>
+
+              <div class="checkout__delivery section-bg">
+                <div class="checkout__delivery__title">Delivery method</div>
+                <div class="checkout__delivery-tabs">
+                  <div class="checkout__delivery-tabs__method active">In-store pickup</div>
+                  <div class="checkout__delivery-tabs__method">Delivery</div>
+                </div>
+              </div>
+
+              <form class="checkout__details section-bg">
+                <div class="checkout__details-title">Buyer details</div>
+                <div class="checkout__details-item">
+                  <label for="phone" class="checkout__details-item__label">Phone number</label>
+                  <input type="tel" name="phone" class="checkout__details-item__input" />
+                </div>
+              </form>
             </div>
-          </form>
+
+            <div class="checkout__row-right"></div>
+          </div>
         </div>
       </div>
     </main>

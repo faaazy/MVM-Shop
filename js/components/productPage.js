@@ -72,7 +72,7 @@ function renderProductPage(productCardInfo) {
   const productPageHTML = `
     <div class="product-page__title title-2">${productCardInfo.title}</div>
 
-    <div class="product-page__main" data-id="${productCardInfo.id}"> 
+    <div class="product-page__main section-bg" data-id="${productCardInfo.id}"> 
       <div class="product-page__main-row">
         <div class="product-page__main-row__left">
           <div class="swiper mySwiper">
@@ -118,7 +118,7 @@ function renderProductPage(productCardInfo) {
       </div>
     </div>
 
-    <div class="product-page__reviews">
+    <div class="product-page__reviews section-bg">
       <div class="product-page__reviews__title title-2">Reviews</div>
 
       ${reviewsHTML}
