@@ -13,6 +13,12 @@
     />
     <script defer type="module" src="./index.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script
+      defer
+      src="https://unpkg.com/libphonenumber-js@^1.7.6/bundle/libphonenumber-max.js"
+    ></script>
+    <!-- <script defer>
+    </script> -->
   </head>
   <body>
     <header class="header" id="header">
@@ -262,16 +268,23 @@
                 </div>
               </div>
 
-              <form class="checkout__details section-bg">
+              <div class="checkout__details section-bg">
                 <div class="checkout__details-title">Buyer details</div>
+                <div class="checkout__details-item__alert"></div>
                 <div class="checkout__details-item">
                   <label for="phone" class="checkout__details-item__label">Phone number</label>
                   <input type="tel" name="phone" class="checkout__details-item__input" />
                 </div>
-              </form>
+              </div>
+
+              <div class="checkout__items">
+                <!-- items from js -->
+              </div>
             </div>
 
-            <div class="checkout__row-right"></div>
+            <div class="checkout__row-right">
+              <!-- from cart just like that -->
+            </div>
           </div>
         </div>
       </div>

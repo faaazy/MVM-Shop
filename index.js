@@ -9,6 +9,8 @@ import { initSearchItems } from "./js/components/searchItems.js";
 import { toggleFavoritesClasses } from "./js/components/favorites.js";
 import { toggleCartIcons } from "./js/components/cart.js";
 
+// import { AsYouType } from "libphonenumber-js";
+
 async function getData() {
   try {
     const res = await fetch("https://dummyjson.com/products?limit=0");

@@ -1143,8 +1143,14 @@ body {
   margin-bottom: 20px;
 }
 .checkout__details-item {
+  display: inline-flex;
+  flex-direction: column;
+  border: 2px solid #2b2b2b;
+  border-radius: 10px;
+  padding: 5px;
 }
 .checkout__details-item__label {
+  color: #2b2b2b;
 }
 .checkout__details-item__input {
 }
