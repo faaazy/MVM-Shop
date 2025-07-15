@@ -32,7 +32,7 @@ export function renderFavoritesPage(favorites) {
 
   favorites.forEach((item) => {
     const favoritesItem = document.createElement("div");
-    favoritesItem.className = "catalog__items-product";
+    favoritesItem.className = "catalog__items-product section-bg";
     favoritesItem.dataset.id = item.id;
 
     favoritesItem.innerHTML = `

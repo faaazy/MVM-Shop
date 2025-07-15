@@ -103,14 +103,14 @@ function renderCartTotalPage() {
   }, 0);
 
   const cartItemsTotal = cartItems.reduce((total, item) => {
-    return total + parseInt(item.price) * item.cart;
+    return total + parseFloat(item.price) * item.cart;
   }, 0);
 
   cartTotalContainer.innerHTML = `
       <div class="cart__right-title">Total:</div>
       <div class="cart__right-sum">
         <div class="cart__right-sum__items">${cartItemsLength} items</div>
-        <div class="cart__right-sum__total">$ ${cartItemsTotal}</div>
+        <div class="cart__right-sum__total">$ ${cartItemsTotal.toFixed(2)}</div>
       </div>
       <div class="cart__right-btn">
         <button>Go to checkout</button>

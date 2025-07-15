@@ -263,8 +263,16 @@
               <div class="checkout__delivery section-bg">
                 <div class="checkout__delivery__title">Delivery method</div>
                 <div class="checkout__delivery-tabs">
-                  <div class="checkout__delivery-tabs__method active">In-store pickup</div>
-                  <div class="checkout__delivery-tabs__method">Delivery</div>
+                  <div class="checkout__delivery-tabs__method active" data-checkout-tabs="pickup">
+                    In-store pickup
+                  </div>
+                  <div class="checkout__delivery-tabs__method" data-checkout-tabs="delivery">
+                    Delivery
+                  </div>
+                </div>
+
+                <div class="checkout__delivery-content">
+                  <!-- tabs content -->
                 </div>
               </div>
 
@@ -272,8 +280,8 @@
                 <div class="checkout__details-title">Buyer details</div>
                 <div class="checkout__details-item__alert"></div>
                 <div class="checkout__details-item">
-                  <label for="phone" class="checkout__details-item__label">Phone number</label>
-                  <input type="tel" name="phone" class="checkout__details-item__input" />
+                  <input type="tel" name="phone" class="checkout__details-item__input" value="" />
+                  <label class="checkout__details-item__label">Phone number</label>
                 </div>
               </div>
 
@@ -282,7 +290,7 @@
               </div>
             </div>
 
-            <div class="checkout__row-right">
+            <div class="checkout__row-right section-bg">
               <!-- from cart just like that -->
             </div>
           </div>
