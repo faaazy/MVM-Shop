@@ -1213,3 +1213,30 @@ body {
     }
   }
 }
+
+.checkout__delivery-content {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.checkout__delivery-content__img {
+  i {
+    font-size: 24px;
+  }
+}
+.checkout__delivery-content__place-title {
+  font-weight: 500;
+  font-size: 18px;
+}
+.checkout__delivery-content__place-address {
+  /* font-size: 14px; */
+}
+
+#map {
+  width: 800px;
+  height: 600px;
+  &.selected {
+    background-color: #e0f7fa;
+  }
+}

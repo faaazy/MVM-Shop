@@ -1,3 +1,5 @@
+import { initMap } from "../components/map.js";
+
 export function initCheckoutPage() {
   validateCheckoutPhone();
 
@@ -117,6 +119,34 @@ function renderCheckoutPage() {
 
     renderCheckoutTotalSection();
   });
+}
+
+export function initCheckoutTabs(clickedTab) {
+  const TabsContentContainer = document.querySelector(".checkout__delivery-content");
+
+  switch (clickedTab.dataset.checkoutTabs) {
+    case "pickup":
+      TabsContentContainer.innerHTML = `
+        <div class="checkout__delivery-content__img">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div class="checkout__delivery-content__place">
+          <div class="checkout__delivery-content__place-title">MVM Shop</div>
+          <div class="checkout__delivery-content__place-address">
+            207 S Memorial Dr, Tulsa, OK 74112, USA
+          </div>
+        </div>
+      `;
+
+      break;
+
+    case "delivery":
+      initMap();
+      break;
+
+    default:
+      break;
+  }
 }
 
 function initCheckoutSwiper() {

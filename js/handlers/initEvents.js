@@ -13,6 +13,7 @@ import {
 } from "../components/cart.js";
 import Catalog from "../classes/catalog.js";
 import { initCheckoutPage } from "../components/checkout.js";
+import { initCheckoutTabs } from "../components/checkout.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -120,6 +121,10 @@ export function initEvents(productsData) {
       showClickedPage(document.querySelector(".checkout"));
 
       initCheckoutPage();
+    }
+
+    if (event.target.classList.contains("checkout__delivery-tabs__method")) {
+      initCheckoutTabs(event.target);
     }
   });
 
