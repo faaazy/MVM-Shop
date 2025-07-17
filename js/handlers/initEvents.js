@@ -12,8 +12,7 @@ import {
   toggleCartIcons,
 } from "../components/cart.js";
 import Catalog from "../classes/catalog.js";
-import { initCheckoutPage } from "../components/checkout.js";
-import { initCheckoutTabs } from "../components/checkout.js";
+import { initCheckoutPage, initCheckoutTabs, saveCheckoutData } from "../components/checkout.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -125,6 +124,10 @@ export function initEvents(productsData) {
 
     if (event.target.classList.contains("checkout__delivery-tabs__method")) {
       initCheckoutTabs(event.target);
+    }
+
+    if (event.target.classList.contains("checkout-submit__btn")) {
+      saveCheckoutData();
     }
   });
 

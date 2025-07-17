@@ -1,4 +1,4 @@
-import { initMap } from "../components/map.js";
+import { initStoresMap, initDeliveryMap } from "../components/map.js";
 
 export function initCheckoutPage() {
   validateCheckoutPhone();
@@ -6,7 +6,9 @@ export function initCheckoutPage() {
   initCheckoutSwiper();
 
   renderCheckoutPage();
-  // renderCheckoutTotalSection();
+
+  if (document.querySelectorAll(".ymaps-2-1-79-map").length > 1) return;
+  initStoresMap();
 }
 
 function validateCheckoutPhone() {
@@ -74,7 +76,7 @@ function renderCheckoutTotalSection() {
         <div class="cart__right-sum__items">${cartItemsLength} items</div>
         <div class="cart__right-sum__total">$ ${cartItemsTotal.toFixed(2)}</div>
       </div>
-      <div class="cart__right-btn">
+      <div class="checkout-submit__btn">
         <button>Confirm order</button>
       </div>
     `;
@@ -122,26 +124,44 @@ function renderCheckoutPage() {
 }
 
 export function initCheckoutTabs(clickedTab) {
-  const TabsContentContainer = document.querySelector(".checkout__delivery-content");
+  const tabsContentContainer = document.querySelector(".checkout__delivery-content");
+  const tabsContainer = document.querySelector(`.${clickedTab.parentElement.classList}`);
+
+  tabsContentContainer.innerHTML = "";
+
+  for (const item of tabsContainer.children) {
+    item.classList.remove("active");
+  }
 
   switch (clickedTab.dataset.checkoutTabs) {
     case "pickup":
-      TabsContentContainer.innerHTML = `
-        <div class="checkout__delivery-content__img">
-          <i class="fa-solid fa-location-dot"></i>
+      clickedTab.classList.add("active");
+
+      tabsContentContainer.innerHTML = `
+      <div>
+        <div id="map"></div>
+        <div class="map__confirm">
+          <button class="map__confirm-btn" type="button">Deliver here</button>
         </div>
-        <div class="checkout__delivery-content__place">
-          <div class="checkout__delivery-content__place-title">MVM Shop</div>
-          <div class="checkout__delivery-content__place-address">
-            207 S Memorial Dr, Tulsa, OK 74112, USA
-          </div>
-        </div>
+      </div>
       `;
 
+      initStoresMap();
       break;
 
     case "delivery":
-      initMap();
+      clickedTab.classList.add("active");
+
+      tabsContentContainer.innerHTML = `
+      <div>
+        <div id="map"></div>
+        <div class="map__confirm">
+          <button class="map__confirm-btn" type="button">Deliver here</button>
+        </div>
+      </div>
+
+      `;
+      initDeliveryMap();
       break;
 
     default:
@@ -159,4 +179,17 @@ function initCheckoutSwiper() {
       prevEl: ".swiper-button-prev",
     },
   });
+}
+
+let selectedMapInfo = {};
+
+document.addEventListener("mapData", (event) => {
+  const mapData = event.detail.selectedInfo;
+
+  selectedMapInfo = { mapData };
+});
+
+export function saveCheckoutData() {
+  const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+  console.log(selectedMapInfo.mapData, cartItems);
 }

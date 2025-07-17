@@ -1,4 +1,6 @@
-export function initMap() {
+let selectedMapData;
+
+export function initStoresMap() {
   let map, selectedMarker;
   const markers = [];
 
@@ -6,24 +8,27 @@ export function initMap() {
 
   function init() {
     map = new ymaps.Map("map", {
-      center: [35.460666, -97.540834], // Москва
+      center: [35.460666, -97.540834],
       zoom: 10,
+      controls: ["zoomControl", "fullscreenControl"],
     });
+
+    map.options.set("suppressMapOpenBlock", true);
 
     addMarker(
       [35.39325595425709, -97.70568821770293],
       "MVM Shop",
-      "951 E State Hwy 152, Mustang, OK 73064, Соединенные Штаты"
+      "951 E State Hwy 152, Mustang, OK 73064, USA"
     );
     addMarker(
       [35.46357250779897, -97.6225946711642],
       "MVM Shop",
-      "6100 W Reno Ave, Oklahoma City, OK 73127, Соединенные Штаты"
+      "6100 W Reno Ave, Oklahoma City, OK 73127, USA"
     );
     addMarker(
       [35.44853389470475, -97.42582048955617],
       "MVM Shop",
-      "5401 Tinker Diagonal St, Del City, OK 73115, Соединенные Штаты"
+      "5401 Tinker Diagonal St, Del City, OK 73115, USA"
     );
   }
 
@@ -31,7 +36,7 @@ export function initMap() {
     const marker = new ymaps.Placemark(
       coords,
       {
-        balloonContent: `<b>${title}</b><br>${description}`,
+        balloonContent: description,
         hintContent: title,
       },
       {
@@ -46,16 +51,6 @@ export function initMap() {
 
       marker.options.set("preset", "islands#greenDotIcon");
       selectedMarker = marker;
-
-      //   document.getElementById("selected-info").innerHTML = `
-      //             <div class="selected">
-      //                 <h3>Вы выбрали:</h3>
-      //                 <p><strong>${title}</strong></p>
-      //                 <p>Координаты: ${coords.join(", ")}</p>
-      //                 <p>${description}</p>
-      //                 <button onclick="processSelection()">Подтвердить выбор</button>
-      //             </div>
-      //         `;
     });
 
     markers.push(marker);
@@ -64,20 +59,106 @@ export function initMap() {
 
   function processSelection() {
     if (!selectedMarker) {
-      alert("Выберите маркер на карте!");
+      alert("Click the marker on the map!");
       return;
     }
 
     const coords = selectedMarker.geometry.getCoordinates();
     const properties = selectedMarker.properties.getAll();
 
-    selectedInfo = {
+    const selectedInfo = {
       title: properties.hintContent,
       description: properties.balloonContent,
       latitude: coords[0],
       longitude: coords[1],
     };
-    console.log(selectedInfo);
+
+    selectedMapData = { selectedInfo };
+
+    document.dispatchEvent(
+      new CustomEvent("mapData", {
+        detail: { selectedInfo },
+      })
+    );
   }
-  processSelection();
+
+  document.querySelector(".map__confirm").addEventListener("click", processSelection);
+}
+
+export function initDeliveryMap() {
+  let map, selectedPlacemark;
+  let selectedCoords = null;
+  let selectedAddress = "";
+
+  ymaps.ready(init);
+
+  function init() {
+    map = new ymaps.Map("map", {
+      center: [35.469495, -97.55137],
+      zoom: 12,
+      controls: ["zoomControl", "fullscreenControl"],
+    });
+    map.options.set("suppressMapOpenBlock", true);
+
+    map.events.add("click", function (e) {
+      const coords = e.get("coords");
+
+      if (selectedPlacemark) {
+        map.geoObjects.remove(selectedPlacemark);
+      }
+
+      selectedPlacemark = new ymaps.Placemark(
+        coords,
+        { iconContent: "Delivery Place" },
+        {
+          preset: "islands#blueDeliveryIcon",
+          draggable: true,
+        }
+      );
+
+      map.geoObjects.add(selectedPlacemark);
+      map.panTo(coords, { flying: true });
+
+      getLocationInfo(coords);
+
+      selectedPlacemark.events.add("dragend", function () {
+        const newCoords = selectedPlacemark.geometry.getCoordinates();
+        getLocationInfo(newCoords);
+      });
+    });
+  }
+
+  function getLocationInfo(coords) {
+    selectedCoords = coords;
+
+    ymaps.geocode(coords).then(function (res) {
+      const firstGeoObject = res.geoObjects.get(0);
+
+      if (firstGeoObject) {
+        selectedAddress = firstGeoObject.getAddressLine();
+      }
+    });
+  }
+
+  function confirmLocation() {
+    if (!selectedCoords) {
+      alert("Select a location on the map!");
+      return;
+    }
+
+    const selectedInfo = {
+      address: selectedAddress,
+      latitude: selectedCoords[0],
+      longitude: selectedCoords[1],
+      timestamp: new Date().toISOString(),
+    };
+
+    document.dispatchEvent(
+      new CustomEvent("mapData", {
+        detail: { selectedInfo },
+      })
+    );
+  }
+
+  document.querySelector(".map__confirm").addEventListener("click", confirmLocation);
 }
