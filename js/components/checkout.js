@@ -1,11 +1,13 @@
 import { initStoresMap, initDeliveryMap } from "../components/map.js";
 
 export function initCheckoutPage() {
+  renderCheckoutPage();
+
   validateCheckoutPhone();
 
   initCheckoutSwiper();
 
-  renderCheckoutPage();
+  initCheckoutPayment();
 
   if (document.querySelectorAll(".ymaps-2-1-79-map").length > 1) return;
   initStoresMap();
@@ -44,11 +46,11 @@ function validateCheckoutPhone() {
 
   checkoutPhoneInput.addEventListener("keydown", (event) => {
     const pressedKey = event.key;
-    const physicalKey = event.code;
 
     if (pressedKey == "Backspace" && checkoutPhoneInput.value.length == 1) {
       checkoutPhoneInput.value = "";
       checkoutPhoneInput.setAttribute("value", "");
+      checkoutDetailsItem.style.border = "2px solid #2b2b2b";
     }
 
     if (pressedKey == "Backspace" && checkoutPhoneInput.value.length == 7) {
@@ -95,10 +97,10 @@ function renderCheckoutPage() {
 
     cartItem.innerHTML = `
           <div class="placeholder"></div>
-          <div class="recent__item-title">${item.shippingInformation}</div>
+          <div class="checkout__item-title">${item.shippingInformation}</div>
           <div class="recent__item-amount">${item.cart} items</div>
-          <div class="recent__item-img">
-              <img src="${item.images[0]}" alt="" class="recent__item-img__image" />
+          <div class="checkout__item-img">
+              <img src="${item.images[0]}" alt="" class="checkout__item-img__image" />
           </div>
           <div class="catalog__items-product__content">
             <div class="recent__item-bottom">
@@ -178,6 +180,51 @@ function initCheckoutSwiper() {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
+
+    on: {
+      click: function (swiper, event) {
+        if (event.target.closest(".swiper-slide")) {
+          swiper.slideTo(0);
+        }
+      },
+    },
+  });
+}
+
+function initCheckoutPayment() {
+  const checkoutPaymentBadgesSwiper = document.querySelector(".checkout__payment-badges__swiper");
+  const checkoutPaymentBadges =
+    checkoutPaymentBadgesSwiper.querySelectorAll(".paymentSwiper__slide");
+  const checkoutPaymentBadgesContainer =
+    checkoutPaymentBadgesSwiper.querySelector(".swiper-wrapper");
+
+  const paymentBadge = document.querySelector(".paymentSwiper__slide.active");
+  paymentBadge.dataset.payment = paymentBadge.children[0].getAttribute("src").split("/")[2];
+
+  checkoutPaymentBadgesSwiper.addEventListener("click", (event) => {
+    if (event.target.closest(".paymentSwiper__slide")) {
+      let badgesArr = [];
+
+      checkoutPaymentBadges.forEach((item) => item.classList.remove("active"));
+      event.target.classList.add("active");
+
+      checkoutPaymentBadges.forEach((badge) => {
+        badge.dataset.payment = badge.children[0].getAttribute("src").split("/")[2];
+
+        badgesArr.push(badge);
+        if (badge.classList == event.target.classList) {
+          const filteredArr = badgesArr.filter(
+            (item) => item.classList.contains("active") == false
+          );
+
+          badgesArr = [...filteredArr];
+
+          badgesArr.unshift(badge);
+        }
+      });
+
+      checkoutPaymentBadgesContainer.insertAdjacentElement("afterbegin", badgesArr[0]);
+    }
   });
 }
 
@@ -191,5 +238,54 @@ document.addEventListener("mapData", (event) => {
 
 export function saveCheckoutData() {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-  console.log(selectedMapInfo.mapData, cartItems);
+  const paymentBadge = document.querySelector(".paymentSwiper__slide.active");
+  const paymentMethod = paymentBadge.dataset.payment.split(".")[0].toLowerCase();
+  const userPhone = document.querySelector(".checkout__details-item__input").value;
+
+  const checkoutAlert = document.querySelector(".checkout__alert");
+
+  let isValid = true;
+
+  if (userPhone.length !== 16) {
+    isValid = false;
+
+    checkoutAlert.classList.remove("hidden");
+    checkoutAlert.innerHTML = "Phone number must be 16 characters long";
+
+    setTimeout(() => {
+      checkoutAlert.classList.add("hidden");
+    }, 2000);
+
+    return;
+  } else {
+    isValid = true;
+    checkoutAlert.classList.add("hidden");
+  }
+
+  if (selectedMapInfo.mapData == undefined) {
+    isValid = false;
+
+    checkoutAlert.classList.remove("hidden");
+    checkoutAlert.innerHTML = "Select delivery method and location";
+
+    alertTimeout = setTimeout(() => {
+      checkoutAlert.classList.add("hidden");
+    }, 2000);
+
+    return;
+  } else {
+    isValid = true;
+    checkoutAlert.classList.add("hidden");
+  }
+
+  if (isValid) {
+    const checkoutData = {
+      cartItems: cartItems,
+      paymentMethod: paymentMethod,
+      mapData: selectedMapInfo.mapData,
+      userPhone: userPhone,
+    };
+
+    console.log(checkoutData);
+  }
 }

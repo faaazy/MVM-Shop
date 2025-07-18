@@ -82,7 +82,10 @@ export function initStoresMap() {
     );
   }
 
-  document.querySelector(".map__confirm").addEventListener("click", processSelection);
+  document.querySelector(".map__confirm").addEventListener("click", (event) => {
+    event.target.classList.add("active");
+    processSelection();
+  });
 }
 
 export function initDeliveryMap() {

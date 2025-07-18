@@ -129,6 +129,12 @@ export function initEvents(productsData) {
     if (event.target.classList.contains("checkout-submit__btn")) {
       saveCheckoutData();
     }
+
+    if (event.target.classList.contains("checkout__return")) {
+      const cartPage = document.querySelector(".cart");
+
+      showClickedPage(cartPage);
+    }
   });
 
   // Show Main Menu
