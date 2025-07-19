@@ -1257,8 +1257,7 @@ body {
   border: 1px solid #ccc !important;
 }
 
-[class*="copyrights-pane"],
-[class*="logo"] {
+[class*="copyrights-pane"] {
   display: none !important;
 }
 

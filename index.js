@@ -9,8 +9,6 @@ import { initSearchItems } from "./js/components/searchItems.js";
 import { toggleFavoritesClasses } from "./js/components/favorites.js";
 import { toggleCartIcons } from "./js/components/cart.js";
 
-// import { AsYouType } from "libphonenumber-js";
-
 async function getData() {
   try {
     const res = await fetch("https://dummyjson.com/products?limit=0");
@@ -48,11 +46,16 @@ async function initApp() {
     const catalogList = new RenderHomePageItems(uniqueCategories, ".header__catalog-content");
     catalogList.fillCatalogList();
 
-    // initProductPage(productsData, showClickedPage);
     initSearchItems(productsData, showClickedPage);
     initRecentItems();
     toggleFavoritesClasses();
-    toggleCartIcons();
+
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+    if (JSON.parse(localStorage.getItem("cartItems"))) {
+      toggleCartIcons();
+    }
 
     initEvents(productsData);
   } catch (error) {

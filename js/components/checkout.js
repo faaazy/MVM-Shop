@@ -1,3 +1,4 @@
+import { showClickedPage } from "../../index.js";
 import { initStoresMap, initDeliveryMap } from "../components/map.js";
 
 export function initCheckoutPage() {
@@ -240,13 +241,13 @@ export function saveCheckoutData() {
   const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
   const paymentBadge = document.querySelector(".paymentSwiper__slide.active");
   const paymentMethod = paymentBadge.dataset.payment.split(".")[0].toLowerCase();
-  const userPhone = document.querySelector(".checkout__details-item__input").value;
+  const userPhone = document.querySelector(".checkout__details-item__input");
 
   const checkoutAlert = document.querySelector(".checkout__alert");
 
   let isValid = true;
 
-  if (userPhone.length !== 16) {
+  if (userPhone.value.length !== 16) {
     isValid = false;
 
     checkoutAlert.classList.remove("hidden");
@@ -268,7 +269,7 @@ export function saveCheckoutData() {
     checkoutAlert.classList.remove("hidden");
     checkoutAlert.innerHTML = "Select delivery method and location";
 
-    alertTimeout = setTimeout(() => {
+    setTimeout(() => {
       checkoutAlert.classList.add("hidden");
     }, 2000);
 
@@ -283,8 +284,29 @@ export function saveCheckoutData() {
       cartItems: cartItems,
       paymentMethod: paymentMethod,
       mapData: selectedMapInfo.mapData,
-      userPhone: userPhone,
+      userPhone: userPhone.value,
     };
+
+    localStorage.setItem("cartItems", JSON.stringify([]));
+    renderCheckoutPage();
+
+    userPhone.value = "";
+
+    const mapTabs = document.querySelectorAll(".checkout__delivery-tabs__method");
+
+    mapTabs.forEach((item) => {
+      if (item.dataset.checkoutTabs == "pickup") {
+        item.classList.add("active");
+      } else {
+        item.classList.remove("active");
+      }
+    });
+
+    document.querySelector(".ymaps-2-1-79-map").remove();
+    initStoresMap();
+
+    const homePage = document.querySelector(".home");
+    showClickedPage(homePage);
 
     console.log(checkoutData);
   }

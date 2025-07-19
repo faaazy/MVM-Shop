@@ -1,5 +1,3 @@
-let selectedMapData;
-
 export function initStoresMap() {
   let map, selectedMarker;
   const markers = [];
@@ -83,8 +81,10 @@ export function initStoresMap() {
   }
 
   document.querySelector(".map__confirm").addEventListener("click", (event) => {
-    event.target.classList.add("active");
     processSelection();
+
+    if (selectedMarker == undefined) return;
+    event.target.classList.add("active");
   });
 }
 
@@ -163,5 +163,10 @@ export function initDeliveryMap() {
     );
   }
 
-  document.querySelector(".map__confirm").addEventListener("click", confirmLocation);
+  document.querySelector(".map__confirm").addEventListener("click", (event) => {
+    confirmLocation();
+
+    if (selectedCoords == undefined) return;
+    event.target.classList.add("active");
+  });
 }
