@@ -287,6 +287,11 @@ export function saveCheckoutData() {
       userPhone: userPhone.value,
     };
 
+    const checkoutDataArray = JSON.parse(localStorage.getItem("checkoutData")) || [];
+    checkoutDataArray.push(checkoutData);
+
+    localStorage.setItem("checkoutData", JSON.stringify(checkoutDataArray));
+
     localStorage.setItem("cartItems", JSON.stringify([]));
     renderCheckoutPage();
 

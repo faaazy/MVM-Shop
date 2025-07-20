@@ -1,3 +1,5 @@
+let selectedMapData = {};
+
 export function initStoresMap() {
   let map, selectedMarker;
   const markers = [];

@@ -13,6 +13,7 @@ import {
 } from "../components/cart.js";
 import Catalog from "../classes/catalog.js";
 import { initCheckoutPage, initCheckoutTabs, saveCheckoutData } from "../components/checkout.js";
+import { initProfilePage } from "../components/profile.js";
 
 export function initEvents(productsData) {
   const mainHome = document.querySelector(".home");
@@ -134,6 +135,14 @@ export function initEvents(productsData) {
       const cartPage = document.querySelector(".cart");
 
       showClickedPage(cartPage);
+    }
+
+    // init profile
+    if (event.target.closest("[data-nav-profile]")) {
+      const profilePage = document.querySelector(".profile");
+
+      showClickedPage(profilePage);
+      initProfilePage();
     }
   });
 

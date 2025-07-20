@@ -88,6 +88,8 @@ export function toggleFavoritesClasses() {
 
     const favoritesProduct = favorites.find((item) => item.id == productId);
 
-    favoritesProduct ? heartIcon.classList.add("active") : heartIcon.classList.remove("active");
+    if (heartIcon) {
+      favoritesProduct ? heartIcon.classList.add("active") : heartIcon.classList.remove("active");
+    }
   });
 }
