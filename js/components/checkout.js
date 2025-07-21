@@ -2,6 +2,8 @@ import { showClickedPage } from "../../index.js";
 import { initStoresMap, initDeliveryMap } from "../components/map.js";
 
 export function initCheckoutPage() {
+  resetMapSelection();
+
   renderCheckoutPage();
 
   validateCheckoutPhone();
@@ -127,6 +129,8 @@ function renderCheckoutPage() {
 }
 
 export function initCheckoutTabs(clickedTab) {
+  resetMapSelection();
+
   const tabsContentContainer = document.querySelector(".checkout__delivery-content");
   const tabsContainer = document.querySelector(`.${clickedTab.parentElement.classList}`);
 
@@ -234,7 +238,7 @@ let selectedMapInfo = {};
 document.addEventListener("mapData", (event) => {
   const mapData = event.detail.selectedInfo;
 
-  selectedMapInfo = { mapData };
+  selectedMapInfo.mapData = { mapData };
 });
 
 export function saveCheckoutData() {
@@ -279,12 +283,15 @@ export function saveCheckoutData() {
     checkoutAlert.classList.add("hidden");
   }
 
+  const currentDate = new Date();
+
   if (isValid) {
     const checkoutData = {
       cartItems: cartItems,
       paymentMethod: paymentMethod,
       mapData: selectedMapInfo.mapData,
       userPhone: userPhone.value,
+      orderDate: currentDate.toLocaleDateString("en-US"),
     };
 
     const checkoutDataArray = JSON.parse(localStorage.getItem("checkoutData")) || [];
@@ -312,7 +319,11 @@ export function saveCheckoutData() {
 
     const homePage = document.querySelector(".home");
     showClickedPage(homePage);
-
-    console.log(checkoutData);
   }
+}
+
+function resetMapSelection() {
+  selectedMapInfo = {};
+  const confirmBtn = document.querySelector(".map__confirm");
+  if (confirmBtn) confirmBtn.classList.remove("active");
 }

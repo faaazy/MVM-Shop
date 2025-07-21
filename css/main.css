@@ -1443,4 +1443,8 @@ body {
   cursor: pointer;
 }
 .profile__content-order__bottom-total {
+  span {
+    font-size: 20px;
+    font-weight: 500;
+  }
 }

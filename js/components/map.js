@@ -1,6 +1,5 @@
-let selectedMapData = {};
-
 export function initStoresMap() {
+  let selectedMapData = null;
   let map, selectedMarker;
   const markers = [];
 
@@ -30,6 +29,9 @@ export function initStoresMap() {
       "MVM Shop",
       "5401 Tinker Diagonal St, Del City, OK 73115, USA"
     );
+
+    const confirmBtn = document.querySelector(".map__confirm");
+    confirmBtn.classList.remove("active");
   }
 
   function addMarker(coords, title, description) {
@@ -45,6 +47,9 @@ export function initStoresMap() {
     );
 
     marker.events.add("click", () => {
+      const confirmBtn = document.querySelector(".map__confirm");
+      confirmBtn.classList.remove("active");
+
       if (selectedMarker) {
         selectedMarker.options.set("preset", "islands#blueDotIcon");
       }
@@ -73,8 +78,6 @@ export function initStoresMap() {
       longitude: coords[1],
     };
 
-    selectedMapData = { selectedInfo };
-
     document.dispatchEvent(
       new CustomEvent("mapData", {
         detail: { selectedInfo },
@@ -82,8 +85,11 @@ export function initStoresMap() {
     );
   }
 
-  document.querySelector(".map__confirm").addEventListener("click", (event) => {
+  const mapConfirmBtn = document.querySelector(".map__confirm");
+  mapConfirmBtn.addEventListener("click", (event) => {
     processSelection();
+
+    console.log(selectedMarker);
 
     if (selectedMarker == undefined) return;
     event.target.classList.add("active");
@@ -91,6 +97,8 @@ export function initStoresMap() {
 }
 
 export function initDeliveryMap() {
+  let selectedMapData = null;
+
   let map, selectedPlacemark;
   let selectedCoords = null;
   let selectedAddress = "";
@@ -106,6 +114,8 @@ export function initDeliveryMap() {
     map.options.set("suppressMapOpenBlock", true);
 
     map.events.add("click", function (e) {
+      const confirmBtn = document.querySelector(".map__confirm");
+      confirmBtn.classList.remove("active");
       const coords = e.get("coords");
 
       if (selectedPlacemark) {
@@ -165,7 +175,8 @@ export function initDeliveryMap() {
     );
   }
 
-  document.querySelector(".map__confirm").addEventListener("click", (event) => {
+  const mapConfirmBtn = document.querySelector(".map__confirm");
+  mapConfirmBtn.addEventListener("click", (event) => {
     confirmLocation();
 
     if (selectedCoords == undefined) return;

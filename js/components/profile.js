@@ -1,5 +1,9 @@
 export function initProfilePage() {
   renderProfilePage();
+
+  handleDeleteOrderCLick();
+
+  renderEmptyOrderPage();
 }
 
 function renderProfilePage() {
@@ -45,7 +49,7 @@ function renderProfilePage() {
     orderPriceTotal = 0;
 
     const totalPrice = cartItems.reduce((total, item) => {
-      return total + parseFloat(item.price);
+      return total + parseFloat(item.price) * item.cart;
     }, 0);
 
     orderPriceTotal += parseFloat(totalPrice.toFixed(2));
@@ -53,23 +57,27 @@ function renderProfilePage() {
     return ProfileOrderProduct;
   }
 
+  let deliveryMethod = "";
+
   const profileOrders = checkoutData
     .map((item, index) => {
+      if (item.mapData.mapData?.title == undefined) {
+        deliveryMethod = item.mapData.mapData.address;
+      } else {
+        deliveryMethod = `${item.mapData.mapData.title} ${item.mapData.mapData.description}`;
+      }
+
       return `
-          <div class="profile__content-order section-bg">
+          <div class="profile__content-order section-bg" data-order="${index}">
               <div class="profile__content-order__date">
-                  <span>Order 0${index + 1}</span> dated ${new Date(
-        `${item.mapData.timestamp}`
-      ).toLocaleDateString("en-US")}
+                  <span>Order 0${index + 1}</span> dated ${item.orderDate}
                 </div>
                 <div class="profile__content-order__info">
                   <div class="profile__content-order__info-phone"><i class="fa-solid fa-phone"></i> Phone number: <span>${
                     item.userPhone
                   }</span></div>
                   <div class="profile__content-order__info-delivery">
-                    <i class="fa-solid fa-location-dot"></i> Delivery Method: <span>${
-                      item.mapData.address
-                    }</span>
+                    <i class="fa-solid fa-location-dot"></i> Delivery Method: <span>${deliveryMethod}</span>
                   </div>
                   <div class="profile__content-order__info-payment">
                     <i class="fa-solid fa-credit-card"></i> Payment method: <span>${
@@ -84,7 +92,7 @@ function renderProfilePage() {
 
                 <div class="profile__content-order__bottom">
                   <div class="profile__content-order__bottom-delete">Delete</div>
-                  <div class="profile__content-order__bottom-total">Total: $ ${orderPriceTotal} </div>
+                  <div class="profile__content-order__bottom-total">Total: <span>$ ${orderPriceTotal}</span> </div>
                 </div>
               </div>
       `;
@@ -92,4 +100,41 @@ function renderProfilePage() {
     .join("");
 
   profileOrdersContainer.innerHTML = profileOrders;
+}
+
+function handleDeleteOrderCLick() {
+  document.addEventListener("click", (event) => {
+    if (event.target.closest(".profile__content-order__bottom-delete")) {
+      const checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || [];
+      const orderItem = event.target.parentElement.parentElement;
+
+      const filteredCheckoutData = checkoutData.filter((item, index) => {
+        return index != parseInt(orderItem.dataset.order);
+      });
+
+      localStorage.setItem("checkoutData", JSON.stringify(filteredCheckoutData));
+      renderProfilePage();
+    }
+  });
+}
+
+function renderEmptyOrderPage() {
+  const checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || [];
+
+  if (checkoutData.length == 0) {
+    const orderContainer = document.querySelector(".profile__content");
+
+    orderContainer.insertAdjacentHTML(
+      "beforeend",
+      `
+    <div class="cart__empty section-bg">
+      <div class="cart__empty-img"><i class="fa-solid fa-bag-shopping"></i></div>
+      <div class="cart__empty-text">You have no Orders</div>
+      <div class="cart__empty-advice">
+        Use the <span class="cart__empty-advice__link">catalog</span> or search 
+      </div>
+    </div>
+    `
+    );
+  }
 }
