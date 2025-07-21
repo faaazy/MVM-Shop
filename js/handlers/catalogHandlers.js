@@ -21,6 +21,7 @@ export function initCatalogHandlers(showClickedPage, Catalog, uniqueCategories) 
 
     showCatalogItemsPage(clickedItem, ".catalog__items-grid");
     resetActiveItems();
+    CatalogItems.setCatalogFilterPricesValues();
   });
 
   // Catalog List items
