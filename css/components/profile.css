@@ -1,0 +1,121 @@
+/* profile */
+
+.profile__content {
+}
+.profile__content-order {
+  margin: 20px 0;
+}
+.profile__content-order__date {
+  padding: 15px 10px;
+  border-bottom: 1px solid #bbbbbb;
+  font-size: 14px;
+
+  span {
+    font-weight: 500;
+    font-size: 16px;
+  }
+}
+.profile__content-order__info {
+  padding: 15px 10px;
+  border-bottom: 1px solid #bbbbbb;
+
+  display: flex;
+  gap: 20px;
+
+  color: #8c8c8c;
+  font-size: 14px;
+
+  & span {
+    color: #000;
+  }
+
+  & .fa-phone,
+  & .fa-location-dot,
+  & .fa-credit-card {
+    color: #8c8c8c;
+  }
+}
+.profile__content-order__info-phone {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  i {
+    margin-right: 5px;
+  }
+}
+.profile__content-order__info-delivery {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  i {
+    margin-right: 5px;
+  }
+}
+.profile__content-order__info-payment {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  i {
+    margin-right: 5px;
+  }
+}
+.profile__content-order__products {
+}
+.profile__content-order__product {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+
+  padding: 20px 20px 20px 10px;
+}
+.profile__content-order__product-img {
+  img {
+    max-height: 150px;
+  }
+}
+.profile__content-order__product-info {
+  margin-right: auto;
+}
+.profile__content-order__product-info__title {
+  font-size: 20px;
+  font-weight: 500;
+}
+.profile__content-order__product-info__code {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #8c8c8c;
+
+  span {
+    color: #000;
+  }
+}
+.profile__content-order__product-price {
+}
+.profile__content-order__product-price__total {
+  span {
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+.profile__content-order__product-price__qty {
+  font-size: 14px;
+  text-align: right;
+}
+.profile__content-order__bottom {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.profile__content-order__bottom-delete {
+  color: red;
+  cursor: pointer;
+}
+.profile__content-order__bottom-total {
+  span {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

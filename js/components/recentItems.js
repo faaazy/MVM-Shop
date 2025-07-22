@@ -82,11 +82,23 @@ function renderRecentlyViewed(recentlyViewedItems) {
 function initRecentlyViewedSwiper() {
   var recentlySwiper = new Swiper(".recentlyViewedSwiper", {
     spaceBetween: 20,
-    slidesPerView: 4,
+    slidesPerView: 1,
 
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
+    },
+
+    breakpoints: {
+      500: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesPerView: 4,
+      },
     },
   });
 }

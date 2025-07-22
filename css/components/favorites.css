@@ -1,0 +1,23 @@
+/* Favorites */
+.favorites {
+  padding: 20px 0 50px;
+}
+.favorites__title {
+  font-size: 26px;
+}
+.favorites__heading {
+  background-color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow-heading);
+}
+.favorites__heading-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+.favorites__main {
+  .catalog__items-product {
+    margin: 20px 0;
+  }
+}

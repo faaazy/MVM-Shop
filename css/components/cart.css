@@ -1,0 +1,127 @@
+/* cart */
+.cart__title {
+  span {
+    font-size: 16px;
+    color: #4b4b4b;
+  }
+}
+.cart__row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.cart__left {
+  max-width: 800px;
+  width: 100%;
+
+  .catalog__items-product {
+    margin: 15px 0;
+  }
+}
+.recent__item-stock {
+  font-size: 14px;
+  color: #4b4b4b;
+
+  &.instock {
+    color: green;
+  }
+  &.outofstock {
+    color: red;
+  }
+}
+.recent__item-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  margin: 10px 0;
+
+  border: 1px solid #4b4b4b;
+  border-radius: 10px;
+
+  .recent__item-counter__decrement {
+    padding: 5px 10px;
+    border-radius: 9px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(75, 75, 75, 0.2);
+    }
+  }
+
+  .recent__item-counter__increment {
+    padding: 5px 10px;
+    border-radius: 9px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(75, 75, 75, 0.2);
+    }
+  }
+}
+
+.cart__right {
+  padding: 15px;
+  margin: 15px 0;
+  width: 100%;
+  max-width: 300px;
+}
+.cart__right-title {
+  font-size: 16px;
+  color: #4b4b4b;
+}
+.cart__right-sum {
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cart__right-sum__items {
+  font-size: 20px;
+  font-weight: 600;
+}
+.cart__right-sum__total {
+  font-size: 20px;
+  font-weight: 600;
+}
+.cart__right-btn {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: var(--accent);
+  border-radius: 10px;
+  color: #fff;
+
+  cursor: pointer;
+
+  button {
+    pointer-events: none;
+  }
+}
+
+/* cart empty */
+.cart__empty {
+  display: grid;
+  place-items: center;
+
+  padding: 100px 150px;
+  margin: 15px 0;
+}
+.cart__empty-img {
+  font-size: 60px;
+}
+.cart__empty-text {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 24px;
+}
+.cart__empty-advice {
+  margin-top: 5px;
+  span {
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--accent);
+  }
+}

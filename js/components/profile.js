@@ -9,7 +9,7 @@ export function initProfilePage() {
 function renderProfilePage() {
   const checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || [];
 
-  const profileOrdersContainer = document.querySelector(".profile__content");
+  const profileOrdersContainer = document.querySelector(".profile .container");
 
   profileOrdersContainer.innerHTML = "";
 
@@ -68,6 +68,9 @@ function renderProfilePage() {
       }
 
       return `
+        <div class="profile__title title-2">Orders</div>
+
+        <div class="profile__content">
           <div class="profile__content-order section-bg" data-order="${index}">
               <div class="profile__content-order__date">
                   <span>Order 0${index + 1}</span> dated ${item.orderDate}
@@ -95,6 +98,7 @@ function renderProfilePage() {
                   <div class="profile__content-order__bottom-total">Total: <span>$ ${orderPriceTotal}</span> </div>
                 </div>
               </div>
+          </div>
       `;
     })
     .join("");

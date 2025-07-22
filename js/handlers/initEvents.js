@@ -144,11 +144,20 @@ export function initEvents(productsData) {
       showClickedPage(profilePage);
       initProfilePage();
     }
-  });
 
-  // Show Main Menu
-  const logo = document.querySelector(".logo");
-  logo.addEventListener("click", () => {
-    showClickedPage(mainHome);
+    // init header burger menu
+    if (event.target.closest(".menu-icon-wrapper")) {
+      const headerRow = document.querySelector(".header__row");
+      const nav = document.querySelector(".header .container");
+
+      document.querySelector(".menu-icon").classList.toggle("menu-icon-active");
+      headerRow.classList.toggle("header__row--mobile");
+      nav.classList.toggle("nav--mobile");
+    }
+
+    // show main menu
+    if (event.target.closest(".logo")) {
+      showClickedPage(mainHome);
+    }
   });
 }
