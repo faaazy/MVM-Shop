@@ -249,4 +249,7 @@
   .product-page__main-row__right-buy__btn {
     font-size: 18px;
   }
+  .product-page__main-row__right-rating {
+    margin-top: 15px;
+  }
 }

@@ -125,3 +125,49 @@
     color: var(--accent);
   }
 }
+@media (max-width: 768px) {
+  .cart__empty {
+    padding: 50px 50px;
+    margin: 15px 0;
+  }
+  .cart__empty-img {
+    font-size: 40px;
+  }
+  .cart__empty-text {
+    margin-top: 10px;
+    font-size: 22px;
+  }
+  .cart__empty-advice {
+    margin-top: 5px;
+  }
+
+  .cart__left {
+    max-width: 800px;
+    width: 100%;
+
+    .catalog__items-product {
+      margin: 15px 0;
+      flex-direction: column;
+      gap: 0;
+
+      & .recent__item-bottom {
+        margin-top: 10px;
+      }
+    }
+  }
+  .cart__row {
+    flex-direction: column-reverse;
+    gap: 0;
+  }
+
+  .cart__right {
+    max-width: none;
+  }
+}
+
+@media (max-width: 375px) {
+  .cart__empty {
+    padding: 20px 25px;
+    margin: 15px 0;
+  }
+}

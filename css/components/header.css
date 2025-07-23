@@ -137,6 +137,12 @@
     cursor: pointer;
   }
 }
+.searchItems__grid {
+  margin: 40px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
 
 .menu-icon-wrapper {
   width: 30px;
@@ -255,6 +261,17 @@
       padding: 5px;
       font-size: 14px;
     }
+  }
+  .searchItems__grid {
+    margin: 20px 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .searchItems__grid {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 

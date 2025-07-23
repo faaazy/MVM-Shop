@@ -48,3 +48,10 @@ body {
   margin: 0 auto;
   padding: 0 10px;
 }
+
+@media (max-width: 768px) {
+  .title-2 {
+    font-size: 22px;
+    margin: 10px 0;
+  }
+}

@@ -23,6 +23,9 @@ export function initEvents(productsData) {
   const catalogContent = document.querySelector(".header__catalog-content");
   const catalogIcon = catalogBtn.querySelector("img");
 
+  const headerRow = document.querySelector(".header__row");
+  const nav = document.querySelector(".header .container");
+
   document.addEventListener("click", (event) => {
     if (event.target.closest(".header__catalog-content a")) {
       catalogContent.classList.add("hidden");
@@ -147,9 +150,17 @@ export function initEvents(productsData) {
 
     // init header burger menu
     if (event.target.closest(".menu-icon-wrapper")) {
-      const headerRow = document.querySelector(".header__row");
-      const nav = document.querySelector(".header .container");
+      document.querySelector(".menu-icon").classList.toggle("menu-icon-active");
+      headerRow.classList.toggle("header__row--mobile");
+      nav.classList.toggle("nav--mobile");
+    }
 
+    if (
+      (event.target.closest(".nav__item") ||
+        event.target.closest(".catalog__list-item") ||
+        event.target.closest(".logo")) &&
+      headerRow.classList.contains("header__row--mobile")
+    ) {
       document.querySelector(".menu-icon").classList.toggle("menu-icon-active");
       headerRow.classList.toggle("header__row--mobile");
       nav.classList.toggle("nav--mobile");

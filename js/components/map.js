@@ -1,5 +1,5 @@
 export function initStoresMap() {
-  let selectedMapData = null;
+  const checkoutAlert = document.querySelector(".checkout__alert");
   let map, selectedMarker;
   const markers = [];
 
@@ -64,7 +64,13 @@ export function initStoresMap() {
 
   function processSelection() {
     if (!selectedMarker) {
-      alert("Click the marker on the map!");
+      checkoutAlert.classList.remove("hidden");
+      checkoutAlert.innerHTML = "Select a location on the map!";
+
+      setTimeout(() => {
+        checkoutAlert.classList.add("hidden");
+      }, 2000);
+
       return;
     }
 
@@ -97,8 +103,7 @@ export function initStoresMap() {
 }
 
 export function initDeliveryMap() {
-  let selectedMapData = null;
-
+  const checkoutAlert = document.querySelector(".checkout__alert");
   let map, selectedPlacemark;
   let selectedCoords = null;
   let selectedAddress = "";
@@ -157,7 +162,13 @@ export function initDeliveryMap() {
 
   function confirmLocation() {
     if (!selectedCoords) {
-      alert("Select a location on the map!");
+      checkoutAlert.classList.remove("hidden");
+      checkoutAlert.innerHTML = "Select a location on the map!";
+
+      setTimeout(() => {
+        checkoutAlert.classList.add("hidden");
+      }, 2000);
+
       return;
     }
 

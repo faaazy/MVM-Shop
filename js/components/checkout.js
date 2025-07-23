@@ -169,6 +169,7 @@ export function initCheckoutTabs(clickedTab) {
 
       `;
       initDeliveryMap();
+
       break;
 
     default:
@@ -179,11 +180,26 @@ export function initCheckoutTabs(clickedTab) {
 function initCheckoutSwiper() {
   var paymentSwiper = new Swiper(".paymentSwiper", {
     spaceBetween: 20,
-    slidesPerView: 4,
+    slidesPerView: 2,
 
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
+    },
+
+    breakpoints: {
+      425: {
+        slidesPerView: 3,
+      },
+      550: {
+        slidesPerView: 4,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesPerView: 4,
+      },
     },
 
     on: {
