@@ -126,7 +126,7 @@ function renderEmptyOrderPage() {
   const checkoutData = JSON.parse(localStorage.getItem("checkoutData")) || [];
 
   if (checkoutData.length == 0) {
-    const orderContainer = document.querySelector(".profile__content");
+    const orderContainer = document.querySelector(".profile .container");
 
     orderContainer.insertAdjacentHTML(
       "beforeend",

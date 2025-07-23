@@ -343,3 +343,18 @@ function resetMapSelection() {
   const confirmBtn = document.querySelector(".map__confirm");
   if (confirmBtn) confirmBtn.classList.remove("active");
 }
+
+function initStoresMapOnPage() {
+  const tabsContentContainer = document.querySelector(".checkout__delivery-content");
+
+  tabsContentContainer.innerHTML = "";
+
+  tabsContentContainer.innerHTML = `
+      <div>
+        <div id="map"></div>
+        <div class="map__confirm">
+          <button class="map__confirm-btn" type="button">Deliver here</button>
+        </div>
+      </div>
+      `;
+}

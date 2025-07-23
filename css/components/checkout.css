@@ -202,7 +202,6 @@
     }
   }
 }
-
 #map {
   margin-top: 20px;
   width: 100% !important;
@@ -210,6 +209,9 @@
   &.selected {
     background-color: #e0f7fa;
   }
+}
+.ymaps-2-1-79-map {
+  width: 100% !important;
 }
 
 .ymaps-2-1-79-hint {
@@ -332,7 +334,6 @@
 
   #map {
     margin-top: 20px;
-    width: 400px !important;
     height: 250px;
   }
 
@@ -352,7 +353,6 @@
   }
   #map {
     margin-top: 20px;
-    width: 100% !important;
     height: 250px;
   }
 }
