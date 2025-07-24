@@ -89,9 +89,8 @@ export function showCatalogItemsPage(clickedItem, catalogContainer) {
 
 initCatalogHandlers(showClickedPage, Catalog, productsData, uniqueCategories);
 
-// Init Catalog Class func
-export let catalogItemsClass;
 
+export let catalogItemsClass;
 export function initCatalogClass() {
   const catalogItemsCategory = document
     .querySelector(".catalog__items-heading__title")
